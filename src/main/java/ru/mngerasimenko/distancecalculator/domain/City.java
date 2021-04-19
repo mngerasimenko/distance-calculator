@@ -1,4 +1,4 @@
-package ru.mngerasimenko.distancecalculator.citystorage;
+package ru.mngerasimenko.distancecalculator.domain;
 
 import ru.mngerasimenko.distancecalculator.calculator.DegreeAndRadian;
 import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
@@ -24,7 +24,6 @@ public class City {
             ex.printStackTrace();
         }
     }
-
 
     public String getLatitude() {
         return latitude;

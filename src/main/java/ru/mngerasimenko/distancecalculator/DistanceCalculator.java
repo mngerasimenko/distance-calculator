@@ -1,11 +1,9 @@
 package ru.mngerasimenko.distancecalculator;
 
 import ru.mngerasimenko.distancecalculator.calculator.CrowFlightDistance;
-import ru.mngerasimenko.distancecalculator.citystorage.City;
-import ru.mngerasimenko.distancecalculator.citystorage.CityStorage;
-import ru.mngerasimenko.distancecalculator.distancestorage.Distance;
-import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
-import ru.mngerasimenko.distancecalculator.settings.Settings;
+import ru.mngerasimenko.distancecalculator.domain.City;
+import ru.mngerasimenko.distancecalculator.storage.CityStorage;
+import ru.mngerasimenko.distancecalculator.domain.Distance;
 
 public class DistanceCalculator {
 
@@ -25,9 +23,9 @@ public class DistanceCalculator {
 
 
 
-        cityStorage.addCity(moscow);
-        cityStorage.addCity(samara);
-        cityStorage.addCity(habarovsk);
+        cityStorage.addItem(moscow);
+        cityStorage.addItem(samara);
+        cityStorage.addItem(habarovsk);
 
         CrowFlightDistance cFDistance = new CrowFlightDistance(samara, sydney);
         Distance d1 = new Distance(cFDistance);

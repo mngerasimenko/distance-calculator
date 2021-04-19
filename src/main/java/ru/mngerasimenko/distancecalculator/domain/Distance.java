@@ -1,9 +1,7 @@
-package ru.mngerasimenko.distancecalculator.distancestorage;
+package ru.mngerasimenko.distancecalculator.domain;
 
 import ru.mngerasimenko.distancecalculator.calculator.Calculations;
-import ru.mngerasimenko.distancecalculator.citystorage.City;
-
-import java.util.Calendar;
+import ru.mngerasimenko.distancecalculator.domain.City;
 
 public class Distance {
 

@@ -3,7 +3,7 @@ package ru.mngerasimenko.distancecalculator.calculator;
 import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
 import ru.mngerasimenko.distancecalculator.settings.Settings;
 
-public class DegreeAndRadian {
+public abstract class DegreeAndRadian {
 
     public static double degreeToRadian(double degree) {
         return degree * Settings.PI_180;
@@ -11,7 +11,7 @@ public class DegreeAndRadian {
 
     public static double degreeToDouble(String degree) throws InvalidCoordinateFormatException {
         double result;
-        if (degree == null || degree.length() < 2) throw new InvalidCoordinateFormatException();
+        if (degree == null || degree.length() < 2) throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_1);
         degree = degree.toUpperCase();
         final int len = degree.length();
         char[] dArray = new char[len - 1];
@@ -27,11 +27,10 @@ public class DegreeAndRadian {
                 } else result = numberDegree;
             } else if (lastChar == 'N' || lastChar == 'E') {
                 result = numberDegree;
-            } else throw new InvalidCoordinateFormatException();
+            } else throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_2);
         } catch (NumberFormatException ex) {
-            throw new InvalidCoordinateFormatException();
+            throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_1);
         }
-
         return result;
     }
 }

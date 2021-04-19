@@ -1,6 +1,6 @@
 package ru.mngerasimenko.distancecalculator.calculator;
 
-import ru.mngerasimenko.distancecalculator.citystorage.City;
+import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.settings.Settings;
 
 public class CrowFlightDistance implements Calculations{
@@ -21,7 +21,7 @@ public class CrowFlightDistance implements Calculations{
         double lA = fromCity.getLongitudeRadian();
         double lB = toCity.getLongitudeRadian();
         double d = Math.sin(yA) * Math.sin(yB) + Math.cos(yA) * Math.cos(yB) * Math.cos(lA - lB);
-        System.out.println(d);
+        //System.out.println(d);
         return Math.acos(d) * Settings.EARTH_RADIUS;
     }
 }
