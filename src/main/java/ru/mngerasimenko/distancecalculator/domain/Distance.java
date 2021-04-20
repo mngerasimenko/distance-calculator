@@ -1,6 +1,7 @@
 package ru.mngerasimenko.distancecalculator.domain;
 
 import ru.mngerasimenko.distancecalculator.calculator.Calculations;
+import ru.mngerasimenko.distancecalculator.calculator.CrowFlightDistance;
 import ru.mngerasimenko.distancecalculator.domain.City;
 
 public class Distance {
@@ -9,15 +10,26 @@ public class Distance {
     private City toCity;
     double distance;
 
-    public Distance(City fromCity, City toCity, double distance) {
+    public Distance(City fromCity, City toCity) {
         this.fromCity = fromCity;
         this.toCity = toCity;
-        this.distance = distance;
+        this.distance = new CrowFlightDistance(fromCity, toCity).getDistance();
     }
 
-    public Distance(Calculations calc) {
-        this.distance = calc.getDistance();
+    public City getFromCity() {
+        return fromCity;
     }
 
+    public City getToCity() {
+        return toCity;
+    }
 
+    public double getDistance() {
+        return distance;
+    }
+
+    @Override
+    public String toString() {
+        return fromCity + " --> " + toCity + " : " + (int)distance;
+    }
 }

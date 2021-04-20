@@ -10,4 +10,6 @@ public interface Calculations {
     double getDistance();
 
 
+
+
 }

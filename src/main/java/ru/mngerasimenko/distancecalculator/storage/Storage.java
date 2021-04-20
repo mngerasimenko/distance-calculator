@@ -4,7 +4,7 @@ import java.util.*;
 
 public abstract class Storage<E> {
 
-    private List<E> storageList;
+    protected List<E> storageList;
 
     public void addItem(E item) {
         if (storageList == null) storageList = new ArrayList<E>();
