@@ -23,8 +23,6 @@ public class MatrixDistance implements Calculations{
         this.toCity = toCity;
     }
 
-
-
     @Override
     public double getDistance() {
         HashSet<City> cityPath = new HashSet<>();
