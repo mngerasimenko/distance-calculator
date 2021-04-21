@@ -18,38 +18,33 @@ public class DistanceCalculator {
     public static void main(String[] args) {
 
 
-            City moscow = new City("Moscow", "55.7522N", "37.6156E");
-            City samara = new City("Samara", "53.2001N", "50.15E");
-            City habarovsk = new City("Habarovsk", "48.4827N", "135.084E");
-//        City tura = new City("Tura", 64.28, 100.22);
+        City moscow = new City("Moscow", "55.7522N", "37.6156E");
+        City samara = new City("Samara", "53.2001N", "50.15E");
+        City habarovsk = new City("Habarovsk", "48.4827N", "135.084E");
+        City tura = new City("Tura", "64.28N", "100.22E");
         City sydney = new City("Sydney", "33.874S", "151.213E");
-
-
-
-            //   City tura = new City("Tura", 1.121387, 1.748224);
-            //   City sydney = new City("Sydney", -0.590913, 2.637827);
-
-
 
         cityStorage.addItem(moscow);
         cityStorage.addItem(samara);
+        cityStorage.addItem(tura);
         cityStorage.addItem(habarovsk);
+        cityStorage.addItem(sydney);
 
         distanceStorage.addItem(new Distance(moscow, samara));
         distanceStorage.addItem(new Distance(moscow,habarovsk));
         distanceStorage.addItem(new Distance(samara,habarovsk));
         distanceStorage.addItem(new Distance(habarovsk,sydney));
-
-
+        distanceStorage.addItem(new Distance(tura,sydney));
+        distanceStorage.addItem(new Distance(tura,habarovsk));
+        distanceStorage.addItem(new Distance(tura,moscow));
 
         cityStorage.getAllItem().forEach(System.out::println);
         System.out.println();
-        //distanceStorage.getMap().forEach(System.out::println);
         distanceStorage.printMap();
-
-       // MatrixDistance matrixDistance = new MatrixDistance(distanceStorage.getAllItem(), moscow, sydney);
-        //matrixDistance.buildMap();
-
+        System.out.println();
+        MatrixDistance matrixDistance = new MatrixDistance(moscow, samara);
+        System.out.printf("%.0f\n",matrixDistance.getDistance());
+        System.out.println(matrixDistance.i);
 
     }
 }

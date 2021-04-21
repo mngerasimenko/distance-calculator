@@ -3,15 +3,16 @@ package ru.mngerasimenko.distancecalculator.storage;
 
 import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.domain.Distance;
+import ru.mngerasimenko.distancecalculator.domain.Сrawler;
 
 import java.util.*;
 
 public class DistanceStorage extends Storage{
 
-    private static HashMap<City, HashSet<CityDistance>> cityMap;
+    public static HashMap cityMap;
 
     static {
-        cityMap = new HashMap<City, HashSet<CityDistance>>();
+        cityMap = new HashMap<City, HashSet<Сrawler>>();
     }
 
     @Override
@@ -24,43 +25,30 @@ public class DistanceStorage extends Storage{
     }
 
     private void addCityToMap(City fCity, City tCity, double dist) {
-        CityDistance cityDistance = new CityDistance(tCity, dist);
+        Сrawler cityDistance = new Сrawler(tCity, dist);
         if (cityMap.containsKey(fCity)) {
-            cityMap.get(fCity).add(cityDistance);
+            ((HashSet)cityMap.get(fCity)).add(cityDistance);
         } else {
-            HashSet citySet = new HashSet<CityDistance>();
+            HashSet citySet = new HashSet<Сrawler>();
             citySet.add(cityDistance);
             cityMap.put(fCity, citySet);
         }
     }
 
-    public HashMap<City, HashSet<CityDistance>> getMap() {
+    public HashMap getMap() {
         return cityMap;
     }
 
-    public void printMap() {
-        for (Map.Entry<City, HashSet<CityDistance>> distance: cityMap.entrySet()) {
-            System.out.println(distance.getKey() +" "+ distance.getValue());
-        }
-    }
-
-    public double searchPath(City fromCity, City toCity) {
-
-        return 0;
-    }
-
-    public static class CityDistance {
-        private City toCity;
-        double distance;
-
-        public CityDistance(City toCity, double distance) {
-            this.toCity = toCity;
-            this.distance = distance;
-        }
-
-        @Override
-        public String toString() {
-            return toCity + "-" + (int)distance;
+    public static void printMap() {
+        for (Object obj: cityMap.entrySet()) {
+            Map.Entry mapItem = (Map.Entry)obj;
+            System.out.print(mapItem.getKey() + " -> ");
+            ((HashSet)mapItem.getValue()).forEach(item -> {
+                Сrawler сrawler = (Сrawler)item;
+                System.out.print(сrawler.getCity() + ":");
+                System.out.printf("%.0f ", сrawler.getDistance());
+                    });
+            System.out.println();
         }
     }
 
