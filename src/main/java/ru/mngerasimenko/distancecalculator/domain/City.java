@@ -5,15 +5,16 @@ import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatExce
 
 public class City {
 
-    private String name;
+    private long city_id;
+    private String city_name;
     private String latitude;
     private String longitude;
     private double latitudeRadian;
     private double longitudeRadian;
 
 
-    public City(String name, String latitude, String longitude) {
-        this.name = name;
+    public City(String city_name, String latitude, String longitude) {
+        this.city_name = city_name;
         this.latitude = latitude;
         this.longitude = longitude;
         try {
@@ -25,9 +26,15 @@ public class City {
         }
     }
 
+    public City(long city_id, String city_name, String latitude, String longitude) {
+        this(city_name,latitude, longitude);
+        this.city_id = city_id;
+
+    }
+
     @Override
     public String toString() {
-        return name + " (" + latitude + ", " + longitude + ")";
+        return city_name + " (" + latitude + ", " + longitude + ")";
     }
 
     public String getLatitude() {
