@@ -12,7 +12,7 @@ public abstract class DegreeAndRadian {
     public static double degreeToDouble(String degree) throws InvalidCoordinateFormatException {
         double result;
         if (degree == null || degree.length() < 2) throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_1);
-        degree = degree.toUpperCase();
+        degree = degree.toUpperCase().replace(',','.');
         final int len = degree.length();
         char[] dArray = new char[len - 1];
         for (int i = 0; i < len - 1; i++) {

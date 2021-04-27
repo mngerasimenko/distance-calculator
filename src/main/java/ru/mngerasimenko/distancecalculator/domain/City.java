@@ -5,7 +5,7 @@ import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatExce
 
 public class City {
 
-    private long city_id;
+    private int city_id;
     private String city_name;
     private String latitude;
     private String longitude;
@@ -26,7 +26,7 @@ public class City {
         }
     }
 
-    public City(long city_id, String city_name, String latitude, String longitude) {
+    public City(int city_id, String city_name, String latitude, String longitude) {
         this(city_name,latitude, longitude);
         this.city_id = city_id;
 
