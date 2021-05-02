@@ -1,15 +1,14 @@
 package ru.mngerasimenko.distancecalculator;
 
-import ru.mngerasimenko.distancecalculator.calculator.MatrixDistance;
 import ru.mngerasimenko.distancecalculator.dao.CityDaoController;
+import ru.mngerasimenko.distancecalculator.dao.DaoController;
+import ru.mngerasimenko.distancecalculator.dao.DistanceDaoController;
 import ru.mngerasimenko.distancecalculator.domain.City;
-import ru.mngerasimenko.distancecalculator.exception.DaoException;
-import ru.mngerasimenko.distancecalculator.settings.Settings;
-import ru.mngerasimenko.distancecalculator.storage.CityStorage;
 import ru.mngerasimenko.distancecalculator.domain.Distance;
+import ru.mngerasimenko.distancecalculator.exception.DaoException;
+import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
+import ru.mngerasimenko.distancecalculator.storage.CityStorage;
 import ru.mngerasimenko.distancecalculator.storage.DistanceStorage;
-
-import java.sql.*;
 
 public class DistanceCalculator {
 
@@ -75,18 +74,32 @@ public class DistanceCalculator {
 //        System.out.println(matrixDistance.i);
 
 
-        CityDaoController dc = new CityDaoController();
+        DaoController<City, Integer> cdc = new CityDaoController();
+        DaoController<Distance, Integer> ddc = new DistanceDaoController();
         try {
-            for (City city : dc.findItem("sa")) {
+            System.out.println(cdc.getItem(5));
+            System.out.println("---------------------------------------------------------------------------------");
+            //System.out.println(dc.insertItem(new City("Kinel","56.333S","65.32124W")));
+            for (City city : cdc.findItem("")) {
                 System.out.println(city);
             }
             System.out.println("---------------------------------------------------------------------------------");
-            System.out.println(dc.getItem(1));
+
+//            ddc.insertItem(new Distance(cdc.getItem(5), cdc.getItem(1)));
+//            ddc.insertItem(new Distance(cdc.getItem(1), cdc.getItem(2)));
+//            ddc.insertItem(new Distance(cdc.getItem(1), cdc.getItem(4)));
+//            ddc.insertItem(new Distance(cdc.getItem(2), cdc.getItem(3)));
+//            ddc.insertItem(new Distance(cdc.getItem(3), cdc.getItem(4)));
+//            ddc.insertItem(new Distance(cdc.getItem(4), cdc.getItem(5)));
+
+            for (Distance distance: ddc.findItem("mos")) {
+                System.out.println(distance);
+            }
         } catch (DaoException ex) {
             ex.printStackTrace();
+        } catch (InvalidCoordinateFormatException ex) {
+            ex.printStackTrace();
         }
-
-
-
     }
+
 }

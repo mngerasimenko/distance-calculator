@@ -6,6 +6,7 @@ import ru.mngerasimenko.distancecalculator.domain.City;
 
 public class Distance {
 
+    int distance_id;
     private City fromCity;
     private City toCity;
     double distance;
@@ -14,6 +15,11 @@ public class Distance {
         this.fromCity = fromCity;
         this.toCity = toCity;
         this.distance = new CrowFlightDistance(fromCity, toCity).getDistance();
+    }
+
+    public Distance(int distance_id, City fromCity, City toCity) {
+        this(fromCity, toCity);
+        this.distance_id = distance_id;
     }
 
     public City getFromCity() {

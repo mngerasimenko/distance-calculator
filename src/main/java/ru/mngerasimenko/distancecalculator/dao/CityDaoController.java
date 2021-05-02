@@ -2,6 +2,7 @@ package ru.mngerasimenko.distancecalculator.dao;
 
 import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.exception.DaoException;
+import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
 import ru.mngerasimenko.distancecalculator.settings.Settings;
 
 import java.sql.*;
@@ -12,15 +13,11 @@ public class CityDaoController extends DaoController<City, Integer> {
 
     private final String FIND_CITY = "SELECT * FROM dc_city WHERE UPPER(city_name) LIKE UPPER(?);";
     private final String GET_CITY = "SELECT * FROM dc_city WHERE city_id = ?;";
-
-    private Connection getConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection(Settings.getProperty(Settings.DB_URL),
-                Settings.getProperty(Settings.DB_LOGIN), Settings.getProperty(Settings.DB_PASSWORD));
-        return connection;
-    }
+    private final String INSERT_CITY = "INSERT INTO dc_city (city_name, latitude, longitude)" +
+            "VALUES (?, ?, ?);";
 
     @Override
-    public List<City> findItem(String pattern) throws DaoException {
+    public List<City> findItem(String pattern) throws DaoException, InvalidCoordinateFormatException {
         List<City> cityList = new LinkedList<>();
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(FIND_CITY)) {
@@ -28,9 +25,11 @@ public class CityDaoController extends DaoController<City, Integer> {
             stmp.setString(1, "%" + pattern + "%");
             ResultSet rs = stmp.executeQuery();
             while (rs.next()) {
-                City city = new City(rs.getInt("city_id"), rs.getString("city_name"),
-                        rs.getString("latitude"), rs.getString("longitude"));
-                cityList.add(city);
+
+                    City city = new City(rs.getInt("city_id"), rs.getString("city_name"),
+                            rs.getString("latitude"), rs.getString("longitude"));
+                    cityList.add(city);
+
             }
         } catch (SQLException ex) {
             throw new DaoException(ex);
@@ -39,7 +38,7 @@ public class CityDaoController extends DaoController<City, Integer> {
     }
 
     @Override
-    public City getItem(Integer id) throws DaoException {
+    public City getItem(Integer id) throws DaoException, InvalidCoordinateFormatException {
         City city = null;
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(GET_CITY)) {
@@ -47,7 +46,6 @@ public class CityDaoController extends DaoController<City, Integer> {
             stmp.setInt(1, id);
             ResultSet rs = stmp.executeQuery();
             if (rs.next()) {
-                int i = rs.getInt("city_id");
                 city = new City(rs.getInt("city_id"), rs.getString("city_name"),
                         rs.getString("latitude"), rs.getString("longitude"));
             }
@@ -56,4 +54,27 @@ public class CityDaoController extends DaoController<City, Integer> {
         }
         return city;
     }
+
+    @Override
+    public Integer insertItem(City item) throws DaoException {
+        Integer result = -1;
+        try (Connection con = getConnection();
+             PreparedStatement stmp = con.prepareStatement(INSERT_CITY, new String[]{"city_id"})) {
+
+            stmp.setString(1, item.getCity_name());
+            stmp.setString(2, item.getLatitude());
+            stmp.setString(3, item.getLongitude());
+            stmp.executeUpdate();
+
+            ResultSet resultSet = stmp.getGeneratedKeys();
+            if (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+            resultSet.close();
+        } catch (SQLException ex) {
+            throw new DaoException(ex);
+        }
+        return result;
+    }
+
 }
