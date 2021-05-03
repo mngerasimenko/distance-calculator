@@ -74,13 +74,13 @@ public class DistanceCalculator {
 //        System.out.println(matrixDistance.i);
 
 
-        DaoController<City, Integer> cdc = new CityDaoController();
-        DaoController<Distance, Integer> ddc = new DistanceDaoController();
+        DaoController<City, Integer> cityDC = new CityDaoController();
+        DaoController<Distance, Integer> distanceDC = new DistanceDaoController();
         try {
-            System.out.println(cdc.getItem(5));
+            System.out.println(cityDC.getItem(5));
             System.out.println("---------------------------------------------------------------------------------");
             //System.out.println(dc.insertItem(new City("Kinel","56.333S","65.32124W")));
-            for (City city : cdc.findItem("")) {
+            for (City city : cityDC.findItem("")) {
                 System.out.println(city);
             }
             System.out.println("---------------------------------------------------------------------------------");
@@ -92,7 +92,7 @@ public class DistanceCalculator {
 //            ddc.insertItem(new Distance(cdc.getItem(3), cdc.getItem(4)));
 //            ddc.insertItem(new Distance(cdc.getItem(4), cdc.getItem(5)));
 
-            for (Distance distance: ddc.findItem("mos")) {
+            for (Distance distance: distanceDC.findItem("mos")) {
                 System.out.println(distance);
             }
         } catch (DaoException ex) {

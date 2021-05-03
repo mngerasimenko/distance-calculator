@@ -14,23 +14,28 @@ import java.util.List;
 
 public class DistanceDaoController extends DaoController<Distance, Integer>{
 
-    private final String FIND_DISTANCE = "SELECT * FROM dc_distance WHERE (UPPER(from_city) LIKE UPPER(?)) OR (UPPER(to_city) LIKE UPPER(?));";
+    private final String FIND_DISTANCE = "SELECT d.distance_id, fc.*, tc.*, d.distance " +
+            "FROM dc_distance AS d " +
+            "INNER JOIN dc_city AS fc ON fc.city_id = d.from_city " +
+            "INNER JOIN dc_city AS tc ON tc.city_id = d.to_city " +
+            "WHERE (UPPER(fc.city_name) LIKE UPPER(?)) OR (UPPER(tc.city_name) LIKE UPPER(?));";
     private final String INSERT_DISTANCE = "INSERT INTO dc_distance (from_city, to_city, distance)" +
             "VALUES (?, ?, ?);";
 
     @Override
-    public List<Distance> findItem(String cityName) throws DaoException, InvalidCoordinateFormatException {
+    public List<Distance> findItem(String pattern) throws DaoException, InvalidCoordinateFormatException {
         List<Distance> distanceList = new LinkedList<>();
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(FIND_DISTANCE)) {
 
-            City fromCity = new CityDaoController().findItem(cityName).get(0);
-            stmp.setInt(1, fromCity.getCity_id());
-            stmp.setInt(2, fromCity.getCity_id());
+            stmp.setString(1, "%" + pattern + "%");
+            stmp.setString(2, "%" + pattern + "%");
             ResultSet rs = stmp.executeQuery();
             while (rs.next()) {
-                fromCity = new CityDaoController().getItem(rs.getInt("from_city"));
-                City toCity = new CityDaoController().getItem(rs.getInt("to_city"));
+                City fromCity = new City(rs.getInt("fc.city_id"),rs.getString("fc.city_name"),
+                        rs.getString("fc.latitude"), rs.getString("fc.longitude"));
+                City toCity = new City(rs.getInt("tc.city_id"),rs.getString("tc.city_name"),
+                        rs.getString("tc.latitude"), rs.getString("tc.longitude"));
                 Distance distance = new Distance(rs.getInt("distance_id"), fromCity, toCity);
                 distanceList.add(distance);
             }
