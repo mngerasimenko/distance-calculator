@@ -20,4 +20,6 @@ public abstract class DaoController<E, K> {
     public abstract List<E> findItem(String pattern) throws DaoException, InvalidCoordinateFormatException;
     public abstract E getItem(K id) throws DaoException, InvalidCoordinateFormatException;
     public abstract K insertItem(E item) throws DaoException;
+    public abstract List<E> getAll() throws DaoException, InvalidCoordinateFormatException;
+
 }

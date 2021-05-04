@@ -9,6 +9,7 @@ public abstract class Settings {
     public static final String DB_URL = "db.url";
     public static final String DB_LOGIN = "db.login";
     public static final String DB_PASSWORD = "db.password";
+    public static final String DB_LIMIT = "db.limit";
 
 
     public static final double EARTH_RADIUS = 6371.0;

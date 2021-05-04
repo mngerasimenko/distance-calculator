@@ -22,6 +22,17 @@ public class Distance {
         this.distance_id = distance_id;
     }
 
+    public Distance(int distance_id, City fromCity, City toCity, double distance) {
+        this.distance_id = distance_id;
+        this.fromCity = fromCity;
+        this.toCity = toCity;
+        if(distance > 0) {
+            this.distance = distance;
+        } else {
+            this.distance = new CrowFlightDistance(fromCity, toCity).getDistance();
+        }
+    }
+
     public City getFromCity() {
         return fromCity;
     }

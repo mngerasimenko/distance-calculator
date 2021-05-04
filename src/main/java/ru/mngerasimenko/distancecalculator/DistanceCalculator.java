@@ -80,7 +80,7 @@ public class DistanceCalculator {
             System.out.println(cityDC.getItem(5));
             System.out.println("---------------------------------------------------------------------------------");
             //System.out.println(dc.insertItem(new City("Kinel","56.333S","65.32124W")));
-            for (City city : cityDC.findItem("")) {
+            for (City city : cityDC.getAll()) {
                 System.out.println(city);
             }
             System.out.println("---------------------------------------------------------------------------------");
@@ -92,9 +92,11 @@ public class DistanceCalculator {
 //            ddc.insertItem(new Distance(cdc.getItem(3), cdc.getItem(4)));
 //            ddc.insertItem(new Distance(cdc.getItem(4), cdc.getItem(5)));
 
-            for (Distance distance: distanceDC.findItem("mos")) {
+            for (Distance distance: distanceDC.getAll()) {
                 System.out.println(distance);
             }
+            System.out.println("---------------------------------------------------------------------------------");
+            System.out.println(distanceDC.getItem(6));
         } catch (DaoException ex) {
             ex.printStackTrace();
         } catch (InvalidCoordinateFormatException ex) {

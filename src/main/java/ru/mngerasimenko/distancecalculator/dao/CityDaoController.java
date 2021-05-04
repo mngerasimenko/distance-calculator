@@ -15,6 +15,7 @@ public class CityDaoController extends DaoController<City, Integer> {
     private final String GET_CITY = "SELECT * FROM dc_city WHERE city_id = ?;";
     private final String INSERT_CITY = "INSERT INTO dc_city (city_name, latitude, longitude)" +
             "VALUES (?, ?, ?);";
+    private final String GET_ALL = "SELECT * FROM dc_city LIMIT ?;";
 
     @Override
     public List<City> findItem(String pattern) throws DaoException, InvalidCoordinateFormatException {
@@ -31,6 +32,7 @@ public class CityDaoController extends DaoController<City, Integer> {
                     cityList.add(city);
 
             }
+            rs.close();
         } catch (SQLException ex) {
             throw new DaoException(ex);
         }
@@ -49,6 +51,7 @@ public class CityDaoController extends DaoController<City, Integer> {
                 city = new City(rs.getInt("city_id"), rs.getString("city_name"),
                         rs.getString("latitude"), rs.getString("longitude"));
             }
+            rs.close();
         } catch (SQLException ex) {
             throw new DaoException(ex);
         }
@@ -77,4 +80,25 @@ public class CityDaoController extends DaoController<City, Integer> {
         return result;
     }
 
+    @Override
+    public List<City> getAll() throws DaoException, InvalidCoordinateFormatException{
+        List<City> cityList = new LinkedList<>();
+        try (Connection con = getConnection();
+             PreparedStatement stmp = con.prepareStatement(GET_ALL)) {
+
+            stmp.setInt(1, Integer.parseInt(Settings.getProperty(Settings.DB_LIMIT)));
+            ResultSet rs = stmp.executeQuery();
+            while (rs.next()) {
+
+                City city = new City(rs.getInt("city_id"), rs.getString("city_name"),
+                        rs.getString("latitude"), rs.getString("longitude"));
+                cityList.add(city);
+
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new DaoException(ex);
+        }
+        return cityList;
+    }
 }
