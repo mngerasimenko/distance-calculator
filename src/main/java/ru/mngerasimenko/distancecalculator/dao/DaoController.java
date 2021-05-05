@@ -12,9 +12,7 @@ import java.util.List;
 public abstract class DaoController<E, K> {
 
     protected Connection getConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection(Settings.getProperty(Settings.DB_URL),
-                Settings.getProperty(Settings.DB_LOGIN), Settings.getProperty(Settings.DB_PASSWORD));
-        return connection;
+        return ConnectionBuilder.getConnection();
     }
 
     public abstract List<E> findItem(String pattern) throws DaoException, InvalidCoordinateFormatException;

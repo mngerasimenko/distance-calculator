@@ -96,7 +96,7 @@ public class DistanceCalculator {
                 System.out.println(distance);
             }
             System.out.println("---------------------------------------------------------------------------------");
-            System.out.println(distanceDC.getItem(6));
+            System.out.println(distanceDC.getItem(3));
         } catch (DaoException ex) {
             ex.printStackTrace();
         } catch (InvalidCoordinateFormatException ex) {

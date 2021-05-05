@@ -7,7 +7,7 @@ import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatExce
 
 public class TestCalculation extends TestCase {
 
-    @Test
+    //@Test
     public void testDegreeToDouble() throws InvalidCoordinateFormatException {
 
         double expResult = -0.7522;
