@@ -15,6 +15,9 @@ public abstract class Settings {
     public static final double EARTH_RADIUS = 6371.0;
     public static final double PI_180 = 3.1415926535897932384626433832795 / 180;
 
+    public static final String ERROR_CITY_1 = "City names is empty";
+    public static final String ERROR_COORDINATE_4 = "Coordinate is empty";
+    public static final String ERROR_COORDINATE_3 = "The side of the world is not specified correctly";
     public static final String ERROR_COORDINATE_2 = "There is no side of the world in the coordinate";
     public static final String ERROR_COORDINATE_1 = "Coordinate format error";
 

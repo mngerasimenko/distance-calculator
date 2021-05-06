@@ -1,6 +1,6 @@
 package ru.mngerasimenko.distancecalculator.exception;
 
-public class InvalidCoordinateFormatException extends Exception{
+public class InvalidCoordinateFormatException extends CityException{
 
     public InvalidCoordinateFormatException() {
     }
@@ -9,7 +9,7 @@ public class InvalidCoordinateFormatException extends Exception{
         super(message);
     }
 
-    public InvalidCoordinateFormatException(String message, Throwable cause) {
-        super(message, cause);
-    }
+//    public InvalidCoordinateFormatException(String message, Throwable cause) {
+//        super(message, cause);
+//    }
 }

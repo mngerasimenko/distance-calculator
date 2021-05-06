@@ -1,6 +1,7 @@
 package ru.mngerasimenko.distancecalculator.dao;
 
 import ru.mngerasimenko.distancecalculator.domain.City;
+import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.DaoException;
 import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
 import ru.mngerasimenko.distancecalculator.settings.Settings;
@@ -18,7 +19,7 @@ public class CityDaoController extends DaoController<City, Integer> {
     private final String GET_ALL = "SELECT * FROM dc_city LIMIT ?;";
 
     @Override
-    public List<City> findItem(String pattern) throws DaoException, InvalidCoordinateFormatException {
+    public List<City> findItem(String pattern) throws DaoException, CityException {
         List<City> cityList = new LinkedList<>();
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(FIND_CITY)) {
@@ -40,7 +41,7 @@ public class CityDaoController extends DaoController<City, Integer> {
     }
 
     @Override
-    public City getItem(Integer id) throws DaoException, InvalidCoordinateFormatException {
+    public City getItem(Integer id) throws DaoException, CityException {
         City city = null;
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(GET_CITY)) {
@@ -81,7 +82,7 @@ public class CityDaoController extends DaoController<City, Integer> {
     }
 
     @Override
-    public List<City> getAll() throws DaoException, InvalidCoordinateFormatException{
+    public List<City> getAll() throws DaoException, CityException {
         List<City> cityList = new LinkedList<>();
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(GET_ALL)) {

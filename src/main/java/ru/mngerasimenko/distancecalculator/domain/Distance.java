@@ -33,6 +33,8 @@ public class Distance {
         }
     }
 
+
+
     public City getFromCity() {
         return fromCity;
     }

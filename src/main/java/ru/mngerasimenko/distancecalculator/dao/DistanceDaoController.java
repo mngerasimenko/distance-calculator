@@ -2,6 +2,8 @@ package ru.mngerasimenko.distancecalculator.dao;
 
 import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.domain.Distance;
+import ru.mngerasimenko.distancecalculator.exception.CalculateException;
+import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.DaoException;
 import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
 
@@ -32,7 +34,7 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
             "INNER JOIN dc_city AS tc ON d.to_city = tc.city_id;";
 
     @Override
-    public List<Distance> findItem(String pattern) throws DaoException, InvalidCoordinateFormatException {
+    public List<Distance> findItem(String pattern) throws DaoException, CityException {
         List<Distance> distanceList = new LinkedList<>();
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(FIND_DISTANCE)) {
@@ -58,7 +60,7 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
     }
 
     @Override
-    public Distance getItem(Integer id) throws DaoException, InvalidCoordinateFormatException {
+    public Distance getItem(Integer id) throws DaoException, CityException {
         Distance distance = null;
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(GET_DISTANCE)) {
@@ -80,8 +82,12 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
     }
 
     @Override
-    public Integer insertItem(Distance item) throws DaoException {
+    public Integer insertItem(Distance item) throws DaoException, CalculateException {
         Integer result = -1;
+        int idFromCity = item.getFromCity().getCity_id();
+        int idToCity = item.getToCity().getCity_id();
+        if (idFromCity == idToCity) throw new CalculateException("Cities are equal");
+
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(INSERT_DISTANCE, new String[]{"distance_id"})) {
 
@@ -102,7 +108,7 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
     }
 
     @Override
-    public List<Distance> getAll() throws DaoException, InvalidCoordinateFormatException {
+    public List<Distance> getAll() throws DaoException, CityException {
         List<Distance> distanceList = new LinkedList<>();
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(GET_ALL)) {

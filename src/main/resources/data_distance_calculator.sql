@@ -13,4 +13,5 @@ INSERT INTO dc_distance (from_city, to_city)
 VALUES
     (1, 2),
     (1, 3),
-    (2, 5);
+    (2, 5),
+    (3, 4);

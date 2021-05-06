@@ -1,6 +1,7 @@
 package ru.mngerasimenko.distancecalculator.domain;
 
 import ru.mngerasimenko.distancecalculator.calculator.DegreeAndRadian;
+import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
 import ru.mngerasimenko.distancecalculator.settings.Settings;
 
@@ -14,18 +15,22 @@ public class City {
     private double longitudeRadian;
 
 
-    public City(String city_name, String latitude, String longitude) throws InvalidCoordinateFormatException{
+    public City(String city_name, String latitude, String longitude) throws InvalidCoordinateFormatException, CityException {
+        if (city_name == null || city_name.isEmpty())
+            throw new CityException(Settings.ERROR_CITY_1);
         this.city_name = city_name;
+        if (latitude == null || latitude.isEmpty())
+            throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_4);
         if (isLatitude(latitude) && isLongitude(longitude)) {
             this.latitude = latitude;
             this.longitude = longitude;
-        } else throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_2);
+        } else throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_3);
         this.latitudeRadian = DegreeAndRadian.degreeToRadian(DegreeAndRadian.degreeToDouble(latitude));
         this.longitudeRadian = DegreeAndRadian.degreeToRadian(DegreeAndRadian.degreeToDouble(longitude));
 
     }
 
-    public City(int city_id, String city_name, String latitude, String longitude) throws InvalidCoordinateFormatException{
+    public City(int city_id, String city_name, String latitude, String longitude) throws CityException {
         this(city_name,latitude, longitude);
         this.city_id = city_id;
     }

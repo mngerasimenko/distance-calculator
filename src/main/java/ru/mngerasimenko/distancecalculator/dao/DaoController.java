@@ -1,5 +1,7 @@
 package ru.mngerasimenko.distancecalculator.dao;
 
+import ru.mngerasimenko.distancecalculator.exception.CalculateException;
+import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.DaoException;
 import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
 import ru.mngerasimenko.distancecalculator.settings.Settings;
@@ -15,9 +17,9 @@ public abstract class DaoController<E, K> {
         return ConnectionBuilder.getConnection();
     }
 
-    public abstract List<E> findItem(String pattern) throws DaoException, InvalidCoordinateFormatException;
-    public abstract E getItem(K id) throws DaoException, InvalidCoordinateFormatException;
-    public abstract K insertItem(E item) throws DaoException;
-    public abstract List<E> getAll() throws DaoException, InvalidCoordinateFormatException;
+    public abstract List<E> findItem(String pattern) throws DaoException, CityException;
+    public abstract E getItem(K id) throws DaoException, CityException;
+    public abstract K insertItem(E item) throws DaoException, CalculateException;
+    public abstract List<E> getAll() throws DaoException, CityException;
 
 }
