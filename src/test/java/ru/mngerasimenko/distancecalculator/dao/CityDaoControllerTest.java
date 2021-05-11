@@ -19,14 +19,14 @@ public class CityDaoControllerTest {
 
     @Test
     public void findItem() throws CityException, DaoException {
-        List<City> cityList = new CityDaoController().findItem("ar");
+        List<City> cityList = new CityDaoController().findItem("а");
         Assert.assertTrue(cityList.size() == 2);
     }
 
     @Test
     public void getItem() throws CityException, DaoException {
         City city = new CityDaoController().getItem(1);
-        Assert.assertTrue(city.getCity_name().equals("Moscow"));
+        Assert.assertTrue(city.getCity_name().equals("Москва"));
     }
 
     @Test(expected = NullPointerException.class)
@@ -67,12 +67,25 @@ public class CityDaoControllerTest {
         int ind = new CityDaoController().insertItem(city);
     }
 
-
     @Test
     public void getAll() throws CityException, DaoException {
         List<City> cityList = new CityDaoController().getAll();
         Assert.assertTrue(cityList.size() == 8);
     }
 
+
+    @Test
+    public void editCityName() throws CityException, DaoException {
+        CityDaoController cdc = new CityDaoController();
+        City city = cdc.getItem(1);
+        int result = cdc.editCityName(city, "Вася");
+        Assert.assertTrue(result == 1);
+    }
+    @Test(expected = CityException.class)
+    public void editCityName1() throws CityException, DaoException {
+        CityDaoController cdc = new CityDaoController();
+        City city = new City("TestCity","23.234s","43.3555w");
+        cdc.editCityName(city, "TestCity");
+    }
 
 }

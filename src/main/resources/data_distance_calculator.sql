@@ -1,7 +1,7 @@
 INSERT INTO dc_city (city_name, latitude, longitude)
 VALUES
-    ('Moscow', '55.7522N', '37.6156E'),
-    ('Samara', '53.2001N', '50.15E'),
+    ('Москва', '55.7522N', '37.6156E'),
+    ('Самара', '53.2001N', '50.15E'),
     ('Khabarovsk', '48.4827N', '135.084E'),
     ('Santiago', '33,4569S', '70,6483W'),
     ('Sydney', '33.874S', '151.213E'),
