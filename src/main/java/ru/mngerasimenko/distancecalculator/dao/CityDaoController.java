@@ -19,6 +19,14 @@ public class CityDaoController extends DaoController<City, Integer> {
     private final String GET_ALL = "SELECT * FROM dc_city LIMIT ?;";
     private final String EDIT_CITY_NAME = "UPDATE dc_city SET city_name = ? WHERE city_id = ?;";
 
+    public CityDaoController() {
+        super();
+    }
+
+    public CityDaoController(ConnectionBuilder connectionBuilder) {
+        super(connectionBuilder);
+    }
+
     public int editCityName(City city, String name) throws DaoException, CityException {
         Integer result = -1;
         if (city == null || city.getCity_id() == 0) {

@@ -11,6 +11,7 @@ import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatExce
 import ru.mngerasimenko.distancecalculator.storage.CityStorage;
 import ru.mngerasimenko.distancecalculator.storage.DistanceStorage;
 
+
 public class DistanceCalculator {
 
     private static CityStorage cityStorage = new CityStorage();
@@ -73,6 +74,7 @@ public class DistanceCalculator {
 //        MatrixDistance matrixDistance = new MatrixDistance(moscow, samara);
 //        System.out.printf("%.0f\n", matrixDistance.getDistance());
 //        System.out.println(matrixDistance.i);
+
 
 
         DaoController<City, Integer> cityDC = new CityDaoController();

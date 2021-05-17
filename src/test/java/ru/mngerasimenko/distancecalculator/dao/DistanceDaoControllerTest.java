@@ -11,48 +11,53 @@ import ru.mngerasimenko.distancecalculator.exception.DaoException;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 public class DistanceDaoControllerTest {
+
+    private static CityDaoController cityDC;
+    private static DistanceDaoController distanceDC;
 
     @BeforeClass
     public static void initTest() throws Exception {
         DBInit.initDB();
+        cityDC = new CityDaoController(new SimpleConnection());
+        distanceDC =new DistanceDaoController(new SimpleConnection());
     }
 
     @Test
     public void findItem() throws CityException, DaoException {
-        List<Distance> distancesList = new DistanceDaoController().findItem("mo");
+        List<Distance> distancesList = distanceDC.findItem("mo");
         Assert.assertTrue(distancesList.size() == 2);
     }
 
     @Test
     public void getItem() throws CityException, DaoException {
-        Distance distance = new DistanceDaoController().getItem(1);
+        Distance distance = distanceDC.getItem(1);
         Assert.assertTrue(distance.getFromCity().getCity_name().equals("Moscow"));
     }
 
     @Test
     public void insertItem() throws CalculateException, DaoException, CityException {
-        City fromCity = new CityDaoController().getItem(5);
-        City toCity = new CityDaoController().getItem(8);
+
+        City fromCity = cityDC.getItem(5);
+        City toCity = cityDC.getItem(8);
         Distance dist = new Distance(fromCity, toCity);
-        int ind = new DistanceDaoController().insertItem(dist);
+        int ind = distanceDC.insertItem(dist);
         Assert.assertTrue(ind == 5);
     }
 
     @Test(expected = CalculateException.class)
     public void insertItemError() throws CalculateException, DaoException, CityException {
-        City fromCity = new CityDaoController().getItem(5);
-        City toCity = new CityDaoController().getItem(5);
+        City fromCity = cityDC.getItem(5);
+        City toCity = cityDC.getItem(5);
         Distance dist = new Distance(fromCity, toCity);
-        int ind = new DistanceDaoController().insertItem(dist);
+        int ind = distanceDC.insertItem(dist);
         Assert.assertTrue(ind == 5);
     }
 
     @Test
     public void getAll() throws CityException, DaoException {
-        List<Distance> distList = new DistanceDaoController().getAll();
+        List<Distance> distList = distanceDC.getAll();
         Assert.assertTrue(distList.size() == 4);
     }
 }

@@ -5,7 +5,6 @@ import ru.mngerasimenko.distancecalculator.domain.Distance;
 import ru.mngerasimenko.distancecalculator.exception.CalculateException;
 import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.DaoException;
-import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +31,13 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
             "FROM dc_distance AS d " +
             "INNER JOIN dc_city AS fc ON d.from_city = fc.city_id " +
             "INNER JOIN dc_city AS tc ON d.to_city = tc.city_id;";
+
+    public DistanceDaoController() {
+        super();
+    }
+    public DistanceDaoController(ConnectionBuilder connectionBuilder) {
+        super(connectionBuilder);
+    }
 
     @Override
     public List<Distance> findItem(String pattern) throws DaoException, CityException {
