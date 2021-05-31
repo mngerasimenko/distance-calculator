@@ -18,6 +18,9 @@ public class PoolConnectionBuilder implements ConnectionBuilder{
         } catch (NamingException e) {
             e.printStackTrace();
         }
+
+        System.out.println(dataSource.toString());
+
         if (dataSource == null) throw new RuntimeException("Connection failed");
     }
 

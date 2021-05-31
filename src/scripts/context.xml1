@@ -6,9 +6,9 @@
                 type="javax.sql.DataSource"
                 driverClassName="com.mysql.cj.jdbc.Driver"
                 url="jdbc:mysql://localhost:3306/distance_calculator?autoReconnect=true"
-                username="root"
+                username="root4"
                 password="root"
-                maxActive="4"
+                maxActive="2"
                 maxIdle="2"
                 maxWait="5000"
 

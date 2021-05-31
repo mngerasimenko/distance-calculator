@@ -12,6 +12,8 @@ import ru.mngerasimenko.distancecalculator.storage.CityStorage;
 import ru.mngerasimenko.distancecalculator.storage.DistanceStorage;
 
 
+
+
 public class DistanceCalculator {
 
     private static CityStorage cityStorage = new CityStorage();

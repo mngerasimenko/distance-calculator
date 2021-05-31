@@ -5,6 +5,7 @@ import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
 import ru.mngerasimenko.distancecalculator.settings.Settings;
 
+
 public class City {
 
     private int city_id;
@@ -13,6 +14,9 @@ public class City {
     private String longitude;
     private double latitudeRadian;
     private double longitudeRadian;
+
+    public City() {
+    }
 
 
     public City(String city_name, String latitude, String longitude) throws InvalidCoordinateFormatException, CityException {
@@ -38,14 +42,12 @@ public class City {
 
     private boolean isLatitude(String source){
         char lastChar = source.toUpperCase().charAt(source.length() - 1);
-        if (lastChar == 'N' || lastChar == 'S') return true;
-        return false;
+        return lastChar == 'N' || lastChar == 'S';
     }
 
     private boolean isLongitude(String source){
         char lastChar = source.toUpperCase().charAt(source.length() - 1);
-        if (lastChar == 'W' || lastChar == 'E') return true;
-        return false;
+        return lastChar == 'W' || lastChar == 'E';
     }
 
     @Override
@@ -53,6 +55,29 @@ public class City {
         return city_name + " (" + latitude + ", " + longitude + ")";
     }
 
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
+    }
+
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitudeRadian(double latitudeRadian) {
+        this.latitudeRadian = latitudeRadian;
+    }
+
+    public void setLongitudeRadian(double longitudeRadian) {
+        this.longitudeRadian = longitudeRadian;
+    }
 
     public String getLatitude() {
         return latitude;
