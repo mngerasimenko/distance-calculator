@@ -8,6 +8,7 @@ import ru.mngerasimenko.distancecalculator.settings.Settings;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class CityDaoController extends DaoController<City, Integer> {
 
@@ -18,6 +19,7 @@ public class CityDaoController extends DaoController<City, Integer> {
             "VALUES (?, ?, ?);";
     private final String GET_ALL = "SELECT * FROM dc_city LIMIT ?;";
     private final String EDIT_CITY_NAME = "UPDATE dc_city SET city_name = ? WHERE city_id = ?;";
+    private final String EDIT_CITY = "UPDATE dc_city SET city_name = ?, latitude = ?, longitude = ? WHERE city_id = ?;";
     private final String DELETE_CITY = "DELETE FROM dc_city WHERE city_id = ?;";
 
     public CityDaoController() {
@@ -38,6 +40,26 @@ public class CityDaoController extends DaoController<City, Integer> {
 
             stmt.setString(1, name);
             stmt.setInt(2, city.getCityId());
+            result = stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new DaoException(ex);
+        }
+        return result;
+    }
+
+    public int editCity(City city, String name, String latitude, String longitude) throws DaoException, CityException {
+        new City(name, latitude, longitude);
+        Integer result = -1;
+        if (city == null || city.getCityId() == 0) {
+            throw new CityException(Settings.ERROR_CITY_2);
+        }
+        try (Connection con = getConnection();
+            PreparedStatement stmt = con.prepareStatement(EDIT_CITY);) {
+            stmt.setString(1, name);
+            stmt.setString(2, latitude);
+            stmt.setString(3, longitude);
+            stmt.setInt(4, city.getCityId());
             result = stmt.executeUpdate();
 
         } catch (SQLException ex) {

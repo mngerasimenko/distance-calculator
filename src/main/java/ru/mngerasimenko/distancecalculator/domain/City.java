@@ -9,19 +9,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Locale;
 
-@Entity
 public class City {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "city_id")
     private int cityId;
-    @Column(name = "city_name")
     private String cityName;
-    @Column(name = "latitude")
     private String latitude;
-    @Column(name = "longitude")
     private String longitude;
 
     private double latitudeRadian;
@@ -37,8 +31,8 @@ public class City {
         if (latitude == null || latitude.isEmpty())
             throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_4);
         if (isLatitude(latitude) && isLongitude(longitude)) {
-            this.latitude = latitude;
-            this.longitude = longitude;
+            this.latitude = latitude.toUpperCase(Locale.ROOT).replace(',', '.');
+            this.longitude = longitude.toUpperCase(Locale.ROOT).replace(',', '.');
         } else throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_3);
         this.latitudeRadian = DegreeAndRadian.degreeToRadian(DegreeAndRadian.degreeToDouble(latitude));
         this.longitudeRadian = DegreeAndRadian.degreeToRadian(DegreeAndRadian.degreeToDouble(longitude));
