@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/getCity")
 @Singleton
-public class getCityService {
+public class GetCityService {
 
     private CityDaoController cdc;
 

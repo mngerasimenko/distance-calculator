@@ -5,24 +5,35 @@ import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
 import ru.mngerasimenko.distancecalculator.settings.Settings;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
 public class City {
 
-    private int city_id;
-    private String city_name;
+    @Id
+    @GeneratedValue
+    @Column(name = "city_id")
+    private int cityId;
+    @Column(name = "city_name")
+    private String cityName;
+    @Column(name = "latitude")
     private String latitude;
+    @Column(name = "longitude")
     private String longitude;
+
     private double latitudeRadian;
     private double longitudeRadian;
 
     public City() {
     }
 
-
-    public City(String city_name, String latitude, String longitude) throws InvalidCoordinateFormatException, CityException {
+    public City(String city_name, String latitude, String longitude) throws CityException {
         if (city_name == null || city_name.isEmpty())
             throw new CityException(Settings.ERROR_CITY_1);
-        this.city_name = city_name;
+        this.cityName = city_name;
         if (latitude == null || latitude.isEmpty())
             throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_4);
         if (isLatitude(latitude) && isLongitude(longitude)) {
@@ -36,9 +47,8 @@ public class City {
 
     public City(int city_id, String city_name, String latitude, String longitude) throws CityException {
         this(city_name,latitude, longitude);
-        this.city_id = city_id;
+        this.cityId = city_id;
     }
-
 
     private boolean isLatitude(String source){
         char lastChar = source.toUpperCase().charAt(source.length() - 1);
@@ -52,54 +62,54 @@ public class City {
 
     @Override
     public String toString() {
-        return city_name + " (" + latitude + ", " + longitude + ")";
+        return cityName + " (" + latitude + ", " + longitude + ")";
     }
 
-    public void setCity_id(int city_id) {
-        this.city_id = city_id;
+    public int getCityId() {
+        return cityId;
     }
 
-    public void setCity_name(String city_name) {
-        this.city_name = city_name;
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setLatitudeRadian(double latitudeRadian) {
-        this.latitudeRadian = latitudeRadian;
-    }
-
-    public void setLongitudeRadian(double longitudeRadian) {
-        this.longitudeRadian = longitudeRadian;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     public String getLatitude() {
         return latitude;
     }
 
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
     public String getLongitude() {
         return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public double getLatitudeRadian() {
         return latitudeRadian;
     }
 
+    public void setLatitudeRadian(double latitudeRadian) {
+        this.latitudeRadian = latitudeRadian;
+    }
+
     public double getLongitudeRadian() {
         return longitudeRadian;
     }
 
-    public String getCity_name() {
-        return city_name;
-    }
-
-    public int getCity_id() {
-        return city_id;
+    public void setLongitudeRadian(double longitudeRadian) {
+        this.longitudeRadian = longitudeRadian;
     }
 }

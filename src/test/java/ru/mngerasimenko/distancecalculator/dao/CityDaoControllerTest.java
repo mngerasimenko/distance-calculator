@@ -29,13 +29,13 @@ public class CityDaoControllerTest {
     @Test
     public void getItem() throws CityException, DaoException {
         City city = cityDC.getItem(1);
-        Assert.assertTrue(city.getCity_name().equals("Moscow"));
+        Assert.assertTrue(city.getCityName().equals("Moscow"));
     }
 
     @Test(expected = NullPointerException.class)
     public void getItemError() throws CityException, DaoException {
         City city = cityDC.getItem(20);
-        Assert.assertTrue(city.getCity_name().equals("Moscow"));
+        Assert.assertTrue(city.getCityName().equals("Moscow"));
     }
 
     @Test
@@ -81,6 +81,15 @@ public class CityDaoControllerTest {
     public void editCityName1() throws CityException, DaoException {
         City city = new City("TestCity","23.234s","43.3555w");
         cityDC.editCityName(city, "TestCity");
+    }
+
+    @Test(expected = DaoException.class)
+    public void deleteCityError() throws DaoException {
+        cityDC.deleteCity(3);
+    }
+    @Test()
+    public void deleteCity() throws DaoException {
+        cityDC.deleteCity(7);
     }
 
 }

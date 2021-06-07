@@ -33,7 +33,7 @@ public class DistanceDaoControllerTest {
     @Test
     public void getItem() throws CityException, DaoException {
         Distance distance = distanceDC.getItem(1);
-        Assert.assertTrue(distance.getFromCity().getCity_name().equals("Moscow"));
+        Assert.assertTrue(distance.getFromCity().getCityName().equals("Moscow"));
     }
 
     @Test

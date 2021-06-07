@@ -18,6 +18,7 @@ public class CityDaoController extends DaoController<City, Integer> {
             "VALUES (?, ?, ?);";
     private final String GET_ALL = "SELECT * FROM dc_city LIMIT ?;";
     private final String EDIT_CITY_NAME = "UPDATE dc_city SET city_name = ? WHERE city_id = ?;";
+    private final String DELETE_CITY = "DELETE FROM dc_city WHERE city_id = ?;";
 
     public CityDaoController() {
         super();
@@ -29,14 +30,14 @@ public class CityDaoController extends DaoController<City, Integer> {
 
     public int editCityName(City city, String name) throws DaoException, CityException {
         Integer result = -1;
-        if (city == null || city.getCity_id() == 0) {
+        if (city == null || city.getCityId() == 0) {
             throw new CityException(Settings.ERROR_CITY_2);
         }
         try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(EDIT_CITY_NAME);) {
 
             stmt.setString(1, name);
-            stmt.setInt(2, city.getCity_id());
+            stmt.setInt(2, city.getCityId());
             result = stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -92,7 +93,7 @@ public class CityDaoController extends DaoController<City, Integer> {
         try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(INSERT_CITY, new String[]{"city_id"})) {
 
-            stmt.setString(1, item.getCity_name());
+            stmt.setString(1, item.getCityName());
             stmt.setString(2, item.getLatitude());
             stmt.setString(3, item.getLongitude());
             stmt.executeUpdate();
@@ -128,5 +129,20 @@ public class CityDaoController extends DaoController<City, Integer> {
             throw new DaoException(ex);
         }
         return cityList;
+    }
+
+    public void deleteCity(int cityId) throws DaoException {
+
+        if (cityId == 0) {
+            throw new DaoException("City id is '0'");
+        }
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(DELETE_CITY);) {
+            stmt.setInt(1, cityId);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DaoException(ex);
+        }
+
     }
 }
