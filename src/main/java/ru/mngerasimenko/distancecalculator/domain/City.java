@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Locale;
+import java.util.Objects;
 
 public class City {
 
@@ -105,5 +106,18 @@ public class City {
 
     public void setLongitudeRadian(double longitudeRadian) {
         this.longitudeRadian = longitudeRadian;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        City city = (City) o;
+        return cityId == city.cityId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cityId);
     }
 }

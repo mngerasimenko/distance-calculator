@@ -3,29 +3,23 @@ package ru.mngerasimenko.distancecalculator.view;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.data.provider.DataProvider;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
-import ru.mngerasimenko.distancecalculator.dao.CityDaoController;
-import ru.mngerasimenko.distancecalculator.domain.City;
-import ru.mngerasimenko.distancecalculator.exception.CityException;
-import ru.mngerasimenko.distancecalculator.exception.DaoException;
 
 import javax.inject.Singleton;
 import javax.servlet.annotation.WebServlet;
-import java.util.List;
 
 @Singleton
 @Title("Distanse Calculator")
 @Theme("valo")
 public class MainView extends UI {
 
-    private CityEditor cityEditor;
+    private CityEditorForm cityEditor;
 
     public MainView() {
 
-        cityEditor = new CityEditor();
+        //cityEditor = new CityEditorForm();
     }
 
     @Override
@@ -40,12 +34,12 @@ public class MainView extends UI {
         final Button buttonCityEditor = new Button("City editor");
         buttonCityEditor.addClickListener(event -> {
             editLayout.removeAllComponents();
-            editLayout.addComponent(cityEditor);
+            editLayout.addComponent(new CityEditorForm());
         });
         final Button buttonCrowFlight = new Button("Crow flight distance");
         buttonCrowFlight.addClickListener(event -> {
             editLayout.removeAllComponents();
-            editLayout.addComponent(new Label("Test Label"));
+            editLayout.addComponent(new CrowFlightDistanceForm());
         });
         final Button buttonMatrix = new Button("Matrix distance");
         menuLayout.addComponent(buttonCityEditor);

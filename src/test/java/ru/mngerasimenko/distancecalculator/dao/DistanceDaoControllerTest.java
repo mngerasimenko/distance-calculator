@@ -60,4 +60,35 @@ public class DistanceDaoControllerTest {
         List<Distance> distList = distanceDC.getAll();
         Assert.assertTrue(distList.size() == 4);
     }
+
+    @Test
+    public void getExisting() {
+        int result = 0;
+        try {
+            City fromCity = cityDC.getItem(1);
+            City toCity = cityDC.getItem(2);
+            result = distanceDC.getExisting(fromCity,toCity);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        } catch (CityException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(result == 1);
+    }
+
+    @Test
+    public void getExisting1() {
+        int result = 0;
+        try {
+            City fromCity = cityDC.getItem(7);
+            City toCity = cityDC.getItem(1);
+            result = distanceDC.getExisting(fromCity,toCity);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        } catch (CityException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(result == -1);
+    }
+
 }

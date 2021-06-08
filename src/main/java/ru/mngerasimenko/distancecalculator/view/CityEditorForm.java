@@ -8,7 +8,7 @@ import ru.mngerasimenko.distancecalculator.exception.DaoException;
 
 import java.util.List;
 
-public class CityEditor extends CustomComponent {
+public class CityEditorForm extends CustomComponent {
 
     private CityDaoController cdc;
     private TextField findCity;
@@ -21,7 +21,7 @@ public class CityEditor extends CustomComponent {
 
     Window popupWindows;
 
-    public CityEditor() {
+    public CityEditorForm() {
         cdc = new CityDaoController();
         cityItem = new City();
         findCity = new TextField("Input city name:");

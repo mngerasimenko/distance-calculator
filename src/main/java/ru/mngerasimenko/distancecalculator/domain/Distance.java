@@ -3,6 +3,7 @@ package ru.mngerasimenko.distancecalculator.domain;
 import ru.mngerasimenko.distancecalculator.calculator.Calculations;
 import ru.mngerasimenko.distancecalculator.calculator.CrowFlightDistance;
 import ru.mngerasimenko.distancecalculator.domain.City;
+import ru.mngerasimenko.distancecalculator.exception.CityException;
 
 public class Distance {
 
@@ -11,18 +12,18 @@ public class Distance {
     private City toCity;
     double distance;
 
-    public Distance(City fromCity, City toCity) {
+    public Distance(City fromCity, City toCity) throws CityException {
         this.fromCity = fromCity;
         this.toCity = toCity;
         this.distance = new CrowFlightDistance(fromCity, toCity).getDistance();
     }
 
-    public Distance(int distance_id, City fromCity, City toCity) {
+    public Distance(int distance_id, City fromCity, City toCity) throws CityException {
         this(fromCity, toCity);
         this.distance_id = distance_id;
     }
 
-    public Distance(int distance_id, City fromCity, City toCity, double distance) {
+    public Distance(int distance_id, City fromCity, City toCity, double distance) throws CityException {
         this.distance_id = distance_id;
         this.fromCity = fromCity;
         this.toCity = toCity;

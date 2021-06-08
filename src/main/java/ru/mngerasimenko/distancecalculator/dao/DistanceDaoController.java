@@ -31,6 +31,8 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
             "FROM dc_distance AS d " +
             "INNER JOIN dc_city AS fc ON d.from_city = fc.city_id " +
             "INNER JOIN dc_city AS tc ON d.to_city = tc.city_id;";
+    private final String GET_EXISTING = "SELECT distance_id from dc_distance " +
+            "WHERE (to_city = ? or to_city = ?) and (from_city = ? or from_city = ?);";
 
     public DistanceDaoController() {
         super();
@@ -135,5 +137,27 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
             throw new DaoException(ex);
         }
         return distanceList;
+    }
+
+    public int getExisting(City fromCity, City toCity) throws DaoException, CityException {
+        int result = -1;
+        if(fromCity == null || toCity == null) throw new CityException("City is empty");
+        try (Connection con = getConnection();
+             PreparedStatement stmp = con.prepareStatement(GET_EXISTING)) {
+               int id_1 = fromCity.getCityId();
+               int id_2 = toCity.getCityId();
+               stmp.setInt(1, id_1);
+               stmp.setInt(2, id_2);
+               stmp.setInt(3, id_1);
+               stmp.setInt(4, id_2);
+               ResultSet rs = stmp.executeQuery();
+               if (rs.next()) {
+                   result = rs.getInt(1);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            throw new DaoException(ex);
+        }
+        return result;
     }
 }
