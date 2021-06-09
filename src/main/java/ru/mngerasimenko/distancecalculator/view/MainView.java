@@ -42,19 +42,20 @@ public class MainView extends UI {
             editLayout.addComponent(new CrowFlightDistanceForm());
         });
         final Button buttonMatrix = new Button("Matrix distance");
+        buttonMatrix.addClickListener(event -> {
+            editLayout.removeAllComponents();
+            editLayout.addComponent(new MatrixDistanceForm());
+        });
+
         menuLayout.addComponent(buttonCityEditor);
         menuLayout.addComponent(buttonCrowFlight);
         menuLayout.addComponent(buttonMatrix);
-
 
         layout.addComponent(label);
         layout.addComponent(menuLayout);
         layout.addComponent(editLayout);
         setContent(layout);
 
-
-//        final VerticalLayout layout = new VerticalLayout();
-//        setContent(layout);
 
 //        final TextField field = new TextField("Type city id:");
 //        field.setWidth("500");

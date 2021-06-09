@@ -1,7 +1,6 @@
 package ru.mngerasimenko.distancecalculator.view;
 
 import com.vaadin.ui.*;
-import ru.mngerasimenko.distancecalculator.calculator.CrowFlightDistance;
 import ru.mngerasimenko.distancecalculator.dao.CityDaoController;
 import ru.mngerasimenko.distancecalculator.dao.DistanceDaoController;
 import ru.mngerasimenko.distancecalculator.domain.City;
@@ -44,6 +43,7 @@ public class CrowFlightDistanceForm extends CustomComponent {
         saveBD = new CheckBox("Save result to database");
         saveBD.setEnabled(false);
         distanceField = new TextField("Distance (kilometers)");
+        distanceField.setReadOnly(true);
 
         boxFromCity = new ComboBox("From city", cityList);
         boxFromCity.setWidth("500");
@@ -65,7 +65,8 @@ public class CrowFlightDistanceForm extends CustomComponent {
                     ddc.insertItem(distance);
                     Notification.show("Distance between the cities of "+
                             fromCity.getCityName() + " and " +
-                            toCity.getCityName() + " is saved in the database");
+                            toCity.getCityName() + " is saved in the database",
+                            Notification.Type.HUMANIZED_MESSAGE).setDelayMsec(1000);
                     calculate.setEnabled(false);
                 }
             } catch (CityException e) {

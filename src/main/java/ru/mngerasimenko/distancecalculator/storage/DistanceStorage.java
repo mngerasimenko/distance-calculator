@@ -10,6 +10,7 @@ import java.util.*;
 public class DistanceStorage extends Storage{
 
     public static HashMap cityMap;
+    private Set<City> citySet = new HashSet<>();
 
     static {
         cityMap = new HashMap<City, HashSet<Сrawler>>();
@@ -22,6 +23,14 @@ public class DistanceStorage extends Storage{
             addCityToMap(dist.getFromCity(), dist.getToCity(), dist.getDistance());
             addCityToMap(dist.getToCity(), dist.getFromCity(), dist.getDistance());
         }
+    }
+
+    public void addItems(List<Distance> items) {
+        items.forEach(dist -> {
+            addItem(dist);
+            citySet.add(dist.getFromCity());
+            citySet.add(dist.getToCity());
+        });
     }
 
     private void addCityToMap(City fCity, City tCity, double dist) {
@@ -52,4 +61,7 @@ public class DistanceStorage extends Storage{
         }
     }
 
+    public Set<City> getCitySet() {
+        return citySet;
+    }
 }

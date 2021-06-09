@@ -42,14 +42,16 @@ public class CityEditorForm extends CustomComponent {
             if (!cityGrid.getSelectedItems().isEmpty()) {
                 setCityItem();
                 createWindow("Edit city", 2);
-            }else Notification.show("Please select city for edit");
+            }else Notification.show("Please select city for edit",
+                    Notification.Type.HUMANIZED_MESSAGE).setDelayMsec(1000);
         });
         deleteCity = new Button("Delete");
         deleteCity.addClickListener(event -> {
             if (!cityGrid.getSelectedItems().isEmpty()) {
                 setCityItem();
                 createWindow("Delete city", 3);
-            }else Notification.show("Please select city for delete");
+            }else Notification.show("Please select city for delete",
+                    Notification.Type.HUMANIZED_MESSAGE).setDelayMsec(1000);
         });
         return new HorizontalLayout(addCity, editCity, deleteCity);
     }
@@ -63,11 +65,13 @@ public class CityEditorForm extends CustomComponent {
                 try {
                     cdc.deleteCity(cityId);
                     initGrid();
-                    Notification.show("City '" + cityName + "' was deleted");
+                    Notification.show("City '" + cityName + "' was deleted",
+                            Notification.Type.HUMANIZED_MESSAGE).setDelayMsec(1000);
                     popupWindows.close();
                 } catch (DaoException e) {
                     // e.printStackTrace();
-                    Notification.show("You can't delete a city! The distance has already been calculated for this city.");
+                    Notification.show("You can't delete a city! The distance has already been calculated for this city.",
+                            Notification.Type.HUMANIZED_MESSAGE).setDelayMsec(-1);
                     popupWindows.close();
                 }
             }));

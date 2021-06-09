@@ -2,6 +2,7 @@ package ru.mngerasimenko.distancecalculator.calculator;
 
 import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.domain.Сrawler;
+import ru.mngerasimenko.distancecalculator.settings.Settings;
 import ru.mngerasimenko.distancecalculator.storage.DistanceStorage;
 
 import java.util.*;
@@ -35,7 +36,7 @@ public class MatrixDistance implements Calculations {
     private void calculateDist(Сrawler crawler, City fromCity) {
 
         City toCity = crawler.getCity();
-        if (toCity == this.toCity) {
+        if (toCity.equals(this.toCity)) {
             double newDist = crawler.getDistance() + calcPath.get(fromCity).getDistance();
             toCityDist = newDist < toCityDist ? newDist : toCityDist;
         } else if (calcPath.containsKey(toCity)) {
@@ -80,6 +81,7 @@ public class MatrixDistance implements Calculations {
     @Override
     public double getDistance() {
         searchPath();
-        return toCityDist;
+        double result = Math.round(toCityDist * 100);
+        return result / 100;
     }
 }
