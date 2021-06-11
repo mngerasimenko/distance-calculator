@@ -110,6 +110,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -175,6 +181,21 @@
                 <version>${jetty.plugin.version}</version>
                 <configuration>
                     <scanIntervalSeconds>2</scanIntervalSeconds>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <propertyFile>${project.basedir}/src/main/resources/liquibase.properties</propertyFile>
+                    <changeLogFile>${project.basedir}/src/main/resources/db.changelog/db.changelog-master.xml</changeLogFile>
+                    <driver>com.mysql.cj.jdbc.Driver</driver>
+                    <url>jdbc:mysql://localhost:3306/distance_calculator?serverTimezone=UTC</url>
+                    <username>root</username>
+                    <password>root</password>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+
                 </configuration>
             </plugin>
 

@@ -1,0 +1,1 @@
+DROP TABLE dc_city;
