@@ -2,6 +2,7 @@ package ru.mngerasimenko.distancecalculator.dao;
 
 import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.domain.Distance;
+import ru.mngerasimenko.distancecalculator.exception.AlreadyAddedException;
 import ru.mngerasimenko.distancecalculator.exception.CalculateException;
 import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.DaoException;
@@ -90,12 +91,15 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
     }
 
     @Override
-    public Integer insertItem(Distance item) throws DaoException, CalculateException {
+    public Integer insertItem(Distance item) throws DaoException, CalculateException, CityException {
         Integer result = -1;
+
         int idFromCity = item.getFromCity().getCityId();
         int idToCity = item.getToCity().getCityId();
         if (idFromCity == idToCity) throw new CalculateException("Cities are equal");
-
+        if (getExisting(item.getFromCity(), item.getToCity()) != -1) {
+            throw new AlreadyAddedException("Distance already added in db");
+        }
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(INSERT_DISTANCE, new String[]{"distance_id"})) {
 
@@ -141,7 +145,7 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
 
     public int getExisting(City fromCity, City toCity) throws DaoException, CityException {
         int result = -1;
-        if(fromCity == null || toCity == null) throw new CityException("City is empty");
+        if(fromCity == null || toCity == null) throw new DaoException("City is empty");
         try (Connection con = getConnection();
              PreparedStatement stmp = con.prepareStatement(GET_EXISTING)) {
                int id_1 = fromCity.getCityId();

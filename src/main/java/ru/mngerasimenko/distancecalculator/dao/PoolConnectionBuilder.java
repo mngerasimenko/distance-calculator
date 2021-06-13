@@ -14,7 +14,7 @@ public class PoolConnectionBuilder implements ConnectionBuilder{
     public  PoolConnectionBuilder() {
         try {
             Context ctx = new InitialContext();
-            dataSource = (DataSource) ctx.lookup("java:jboss/datasources/distanceCalculator");
+            dataSource = (DataSource) ctx.lookup("java:/magenta/datasource/test-distance-calculator");
         } catch (NamingException e) {
             e.printStackTrace();
         }

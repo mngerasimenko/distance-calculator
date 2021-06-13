@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<distanceCalculator>
+    <citys>
+        <city xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="city">
+            <cityName>Moscow</cityName>
+            <latitude>55.7522N</latitude>
+            <longitude>37.6156E</longitude>
+        </city>
+        <city xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="city">
+            <cityName>Samara</cityName>
+            <latitude>53.2001N</latitude>
+            <longitude>50.15E</longitude>
+        </city>
+        <city xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="city">
+            <cityName>Khabarovsk</cityName>
+            <latitude>48.4827N</latitude>
+            <longitude>135.084E</longitude>
+        </city>
+        <city xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="city">
+            <cityName>Santiago</cityName>
+            <latitude>33.4569S</latitude>
+            <longitude>70.6483W</longitude>
+        </city>
+        <city xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="city">
+            <cityName>Sydney</cityName>
+            <latitude>33.874S</latitude>
+            <longitude>151.213E</longitude>
+        </city>
+        <city xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="city">
+            <cityName>Washington</cityName>
+            <latitude>38.8951N</latitude>
+            <longitude>77.0364W</longitude>
+        </city>
+        <city xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="city">
+            <cityName>Pretoria</cityName>
+            <latitude>25.7449S</latitude>
+            <longitude>28.1878E</longitude>
+        </city>
+        <city xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="city">
+            <cityName>Tokyo</cityName>
+            <latitude>35.6895N</latitude>
+            <longitude>139.692E</longitude>
+        </city>
+    </citys>
+    <distances>
+        <distance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="distance">
+            <fromCity>
+                <cityName>Moscow</cityName>
+                <latitude>55.7522N</latitude>
+                <longitude>37.6156E</longitude>
+            </fromCity>
+            <toCity>
+                <cityName>Samara</cityName>
+                <latitude>53.2001N</latitude>
+                <longitude>50.15E</longitude>
+            </toCity>
+            <dist>856.67</dist>
+        </distance>
+        <distance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="distance">
+            <fromCity>
+                <cityName>Moscow</cityName>
+                <latitude>55.7522N</latitude>
+                <longitude>37.6156E</longitude>
+            </fromCity>
+            <toCity>
+                <cityName>Khabarovsk</cityName>
+                <latitude>48.4827N</latitude>
+                <longitude>135.084E</longitude>
+            </toCity>
+            <dist>6140.06</dist>
+        </distance>
+        <distance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="distance">
+            <fromCity>
+                <cityName>Samara</cityName>
+                <latitude>53.2001N</latitude>
+                <longitude>50.15E</longitude>
+            </fromCity>
+            <toCity>
+                <cityName>Sydney</cityName>
+                <latitude>33.874S</latitude>
+                <longitude>151.213E</longitude>
+            </toCity>
+            <dist>13654.96</dist>
+        </distance>
+        <distance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="distance">
+            <fromCity>
+                <cityName>Khabarovsk</cityName>
+                <latitude>48.4827N</latitude>
+                <longitude>135.084E</longitude>
+            </fromCity>
+            <toCity>
+                <cityName>Santiago</cityName>
+                <latitude>33.4569S</latitude>
+                <longitude>70.6483W</longitude>
+            </toCity>
+            <dist>17306.32</dist>
+        </distance>
+    </distances>
+</distanceCalculator>

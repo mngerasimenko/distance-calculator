@@ -26,7 +26,7 @@ public abstract class DaoController<E, K> {
 
     public abstract List<E> findItem(String pattern) throws DaoException, CityException;
     public abstract E getItem(K id) throws DaoException, CityException;
-    public abstract K insertItem(E item) throws DaoException, CalculateException;
+    public abstract K insertItem(E item) throws DaoException, CalculateException, CityException;
     public abstract List<E> getAll() throws DaoException, CityException;
 
 }

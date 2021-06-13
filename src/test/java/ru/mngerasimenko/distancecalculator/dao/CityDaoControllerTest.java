@@ -64,6 +64,12 @@ public class CityDaoControllerTest {
     public void insertItemError5() throws CityException {
         City city = new City("TestCity","","34.545W");
     }
+    @Test(expected = DaoException.class)
+    public void insertItemError6() throws CityException, DaoException {
+        City city = new City("Moscow","55.7522N","37.6156E");
+        cityDC.insertItem(city);
+    }
+
 
     @Test
     public void getAll() throws CityException, DaoException {

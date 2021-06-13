@@ -9,10 +9,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Locale;
 import java.util.Objects;
 
+
+@XmlRootElement(name = "city")
+@XmlType(propOrder = {"cityName", "latitude", "longitude"})
 public class City {
+
 
     private int cityId;
     private String cityName;
@@ -60,6 +68,7 @@ public class City {
         return cityName + " (" + latitude + ", " + longitude + ")";
     }
 
+    @XmlTransient
     public int getCityId() {
         return cityId;
     }
@@ -68,6 +77,7 @@ public class City {
         this.cityId = cityId;
     }
 
+    @XmlElement(name = "cityName")
     public String getCityName() {
         return cityName;
     }
@@ -76,6 +86,7 @@ public class City {
         this.cityName = cityName;
     }
 
+    @XmlElement(name = "latitude")
     public String getLatitude() {
         return latitude;
     }
@@ -84,6 +95,7 @@ public class City {
         this.latitude = latitude;
     }
 
+    @XmlElement(name = "longitude")
     public String getLongitude() {
         return longitude;
     }
@@ -92,6 +104,7 @@ public class City {
         this.longitude = longitude;
     }
 
+    @XmlTransient
     public double getLatitudeRadian() {
         return latitudeRadian;
     }
@@ -100,6 +113,7 @@ public class City {
         this.latitudeRadian = latitudeRadian;
     }
 
+    @XmlTransient
     public double getLongitudeRadian() {
         return longitudeRadian;
     }
@@ -113,11 +127,11 @@ public class City {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         City city = (City) o;
-        return cityId == city.cityId;
+        return cityName.equals(city.cityName) && latitude.equals(city.latitude) && longitude.equals(city.longitude);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cityId);
+        return Objects.hash(cityName, latitude, longitude);
     }
 }

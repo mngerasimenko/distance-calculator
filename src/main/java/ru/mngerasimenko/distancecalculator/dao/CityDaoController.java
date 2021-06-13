@@ -1,6 +1,7 @@
 package ru.mngerasimenko.distancecalculator.dao;
 
 import ru.mngerasimenko.distancecalculator.domain.City;
+import ru.mngerasimenko.distancecalculator.exception.AlreadyAddedException;
 import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.DaoException;
 import ru.mngerasimenko.distancecalculator.settings.Settings;
@@ -110,8 +111,14 @@ public class CityDaoController extends DaoController<City, Integer> {
     }
 
     @Override
-    public Integer insertItem(City item) throws DaoException {
+    public Integer insertItem(City item) throws DaoException, CityException {
         Integer result = -1;
+        for (City city: findItem(item.getCityName())) {
+            if (city.equals(item)) {
+                throw new AlreadyAddedException("City already added in db");
+            }
+        }
+
         try (Connection con = getConnection();
              PreparedStatement stmt = con.prepareStatement(INSERT_CITY, new String[]{"city_id"})) {
 

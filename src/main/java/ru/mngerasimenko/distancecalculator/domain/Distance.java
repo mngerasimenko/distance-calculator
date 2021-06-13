@@ -5,12 +5,19 @@ import ru.mngerasimenko.distancecalculator.calculator.CrowFlightDistance;
 import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.exception.CityException;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "distance")
+@XmlType(propOrder = {"fromCity", "toCity", "distance"})
 public class Distance {
 
     int distance_id;
     private City fromCity;
     private City toCity;
     double distance;
+
+    public Distance() {
+    }
 
     public Distance(City fromCity, City toCity) throws CityException {
         this.fromCity = fromCity;
@@ -34,18 +41,40 @@ public class Distance {
         }
     }
 
+    @XmlTransient
+    public int getDistance_id() {
+        return distance_id;
+    }
 
+    public void setDistance_id(int distance_id) {
+        this.distance_id = distance_id;
+    }
 
+    @XmlElement(name = "fromCity")
     public City getFromCity() {
         return fromCity;
     }
 
+    @XmlElement(name = "toCity")
     public City getToCity() {
         return toCity;
     }
 
+    @XmlElement(name = "dist")
     public double getDistance() {
         return distance;
+    }
+
+    public void setFromCity(City fromCity) {
+        this.fromCity = fromCity;
+    }
+
+    public void setToCity(City toCity) {
+        this.toCity = toCity;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     @Override
