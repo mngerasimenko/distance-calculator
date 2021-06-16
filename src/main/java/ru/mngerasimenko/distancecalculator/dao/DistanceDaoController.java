@@ -93,7 +93,6 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
     @Override
     public Integer insertItem(Distance item) throws DaoException, CalculateException, CityException {
         Integer result = -1;
-
         int idFromCity = item.getFromCity().getCityId();
         int idToCity = item.getToCity().getCityId();
         if (idFromCity == idToCity) throw new CalculateException("Cities are equal");
@@ -107,7 +106,6 @@ public class DistanceDaoController extends DaoController<Distance, Integer> {
             stmp.setInt(2, item.getToCity().getCityId());
             stmp.setDouble(3, item.getDistance());
             stmp.executeUpdate();
-
             ResultSet resultSet = stmp.getGeneratedKeys();
             if (resultSet.next()) {
                 result = resultSet.getInt(1);

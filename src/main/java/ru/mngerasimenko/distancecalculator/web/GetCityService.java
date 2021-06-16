@@ -26,7 +26,7 @@ public class GetCityService {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public City getCity(@PathParam("id") int id) throws CityException, DaoException {
-
+        System.out.println(cdc.getItem(id));
         return cdc.getItem(id);
     }
 }

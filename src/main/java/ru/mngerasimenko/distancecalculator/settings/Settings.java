@@ -11,6 +11,9 @@ public abstract class Settings {
     public static final String DB_PASSWORD = "db.password";
     public static final String DB_LIMIT = "db.limit";
 
+    public static final String BASE_URI = "uri.base";
+    public static final String XML_DIR = "xml.dir";
+
 
     public static final double EARTH_RADIUS = 6371.0;
     public static final double PI_180 = 3.1415926535897932384626433832795 / 180;

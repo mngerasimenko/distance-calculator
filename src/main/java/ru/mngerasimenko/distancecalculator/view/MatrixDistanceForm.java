@@ -31,8 +31,6 @@ public class MatrixDistanceForm extends CustomComponent {
             e.printStackTrace();
         }
         citySet = distanceStorage.getCitySet();
-
-
         final Label formName = new Label("Distance calculation based on the matrix");
         ComboBox boxFromCity = initComboBox("From city");
         ComboBox boxToCity = initComboBox("To city");
@@ -44,13 +42,12 @@ public class MatrixDistanceForm extends CustomComponent {
             City fromCity = (City)boxFromCity.getValue();
             City toCity = (City)boxToCity.getValue();
 
-           // Notification.show(fromCity + " " + toCity, Notification.Type.ERROR_MESSAGE);
-            MatrixDistance matrixDistance = new MatrixDistance((City)boxFromCity.getValue(),
-                    (City)boxToCity.getValue());
-
-
-            //matrixDistance.getDistance();
-            distanceField.setValue(String.valueOf(matrixDistance.getDistance()));
+            if (fromCity.getCityId() != toCity.getCityId()) {
+                MatrixDistance matrixDistance = new MatrixDistance(fromCity, toCity, distanceStorage);
+                double dist = matrixDistance.getDistance();
+                if (dist >= 0) distanceField.setValue(String.valueOf(dist));
+                else Notification.show("It is impossible to pave the way");
+            } else Notification.show("Сities can't be equals", Notification.Type.ERROR_MESSAGE);
         });
 
         setCompositionRoot(new VerticalLayout(formName, boxFromCity, boxToCity,

@@ -3,17 +3,20 @@ package ru.mngerasimenko.distancecalculator.storage;
 
 import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.domain.Distance;
-import ru.mngerasimenko.distancecalculator.domain.Сrawler;
+import ru.mngerasimenko.distancecalculator.domain.Crawler;
 
+import javax.inject.Singleton;
 import java.util.*;
 
 public class DistanceStorage extends Storage{
 
-    public static HashMap cityMap;
-    private Set<City> citySet = new HashSet<>();
+    @Singleton
+    private HashMap cityMap;
+    private Set<City> citySet;
 
-    static {
-        cityMap = new HashMap<City, HashSet<Сrawler>>();
+    public DistanceStorage() {
+        cityMap = new HashMap<City, HashSet<Crawler>>();
+        citySet = new HashSet<>();
     }
 
     @Override
@@ -34,11 +37,11 @@ public class DistanceStorage extends Storage{
     }
 
     private void addCityToMap(City fCity, City tCity, double dist) {
-        Сrawler cityDistance = new Сrawler(tCity, dist);
+        Crawler cityDistance = new Crawler(tCity, dist);
         if (cityMap.containsKey(fCity)) {
             ((HashSet)cityMap.get(fCity)).add(cityDistance);
         } else {
-            HashSet citySet = new HashSet<Сrawler>();
+            HashSet citySet = new HashSet<Crawler>();
             citySet.add(cityDistance);
             cityMap.put(fCity, citySet);
         }
@@ -48,14 +51,14 @@ public class DistanceStorage extends Storage{
         return cityMap;
     }
 
-    public static void printMap() {
+    public  void printMap() {
         for (Object obj: cityMap.entrySet()) {
             Map.Entry mapItem = (Map.Entry)obj;
             System.out.print(mapItem.getKey() + " -> ");
             ((HashSet)mapItem.getValue()).forEach(item -> {
-                Сrawler сrawler = (Сrawler)item;
-                System.out.print(сrawler.getCity() + ":");
-                System.out.printf("%.0f ", сrawler.getDistance());
+                Crawler crawler = (Crawler)item;
+                System.out.print(crawler.getCity() + ":");
+                System.out.printf("%.0f ", crawler.getDistance());
                     });
             System.out.println();
         }
@@ -63,5 +66,9 @@ public class DistanceStorage extends Storage{
 
     public Set<City> getCitySet() {
         return citySet;
+    }
+
+    public HashMap getCityMap() {
+        return cityMap;
     }
 }

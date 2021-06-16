@@ -21,7 +21,6 @@ import java.util.Objects;
 @XmlType(propOrder = {"cityName", "latitude", "longitude"})
 public class City {
 
-
     private int cityId;
     private String cityName;
     private String latitude;
@@ -45,7 +44,6 @@ public class City {
         } else throw new InvalidCoordinateFormatException(Settings.ERROR_COORDINATE_3);
         this.latitudeRadian = DegreeAndRadian.degreeToRadian(DegreeAndRadian.degreeToDouble(latitude));
         this.longitudeRadian = DegreeAndRadian.degreeToRadian(DegreeAndRadian.degreeToDouble(longitude));
-
     }
 
     public City(int city_id, String city_name, String latitude, String longitude) throws CityException {

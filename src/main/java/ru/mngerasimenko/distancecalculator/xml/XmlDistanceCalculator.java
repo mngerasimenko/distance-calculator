@@ -1,8 +1,8 @@
 package ru.mngerasimenko.distancecalculator.xml;
 
+import com.vaadin.ui.Upload;
 import ru.mngerasimenko.distancecalculator.dao.CityDaoController;
 import ru.mngerasimenko.distancecalculator.dao.DistanceDaoController;
-import ru.mngerasimenko.distancecalculator.dao.SimpleConnection;
 import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.domain.Distance;
 import ru.mngerasimenko.distancecalculator.domain.XmlStorage;
@@ -15,14 +15,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 
-public class XmlDistanceCalculator {
+public class XmlDistanceCalculator implements Upload.Receiver {
 
     DistanceDaoController ddc;
     CityDaoController cdc;
@@ -41,7 +38,7 @@ public class XmlDistanceCalculator {
         m.marshal(storage, xmlFile);
     }
 
-    public int[] fromXmlFile(File xmlFile) throws JAXBException, FileNotFoundException, CityException, DaoException {
+    public Integer[] fromXmlFile(File xmlFile) throws JAXBException, FileNotFoundException, CityException, DaoException {
         int countCity = 0;
         int countDist = 0;
         JAXBContext context = JAXBContext.newInstance(XmlStorage.class);
@@ -54,10 +51,8 @@ public class XmlDistanceCalculator {
             } catch (AlreadyAddedException ex) {
                 // city Already added
             }
-
         }
         for(Object dist: storage.getDistanceList()) {
-
             Distance distance = (Distance) dist;
             City fromCity = distance.getFromCity();
             for (City city: cdc.findItem(fromCity.getCityName())) {
@@ -80,8 +75,19 @@ public class XmlDistanceCalculator {
                 e.printStackTrace();
             }
         }
-        int[] result = {countCity, countDist};
+        Integer[] result = {countCity, countDist};
         return result;
+    }
+
+    @Override
+    public OutputStream receiveUpload(String fileName, String mimeType) {
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(fileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return fos;
     }
 
 }

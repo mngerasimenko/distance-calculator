@@ -9,16 +9,20 @@ import ru.mngerasimenko.distancecalculator.xml.XmlDistanceCalculator;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class DistanceCalculator {
 
-    public static void main(String[] args) throws CityException, JAXBException, DaoException, FileNotFoundException {
+    public static void main(String[] args) throws CityException, JAXBException, DaoException, IOException {
 
 
-        XmlDistanceCalculator xmldc = new XmlDistanceCalculator();
+        //XmlDistanceCalculator xmldc = new XmlDistanceCalculator();
         //xmldc.toXmlFile(new File("src/main/resources/data.xml"));
 
-        xmldc.fromXmlFile(new File("src/main/resources/data.xml"));
+        //xmldc.fromXmlFile(new File("src/main/resources/data.xml"));
+
+
 
     }
 }

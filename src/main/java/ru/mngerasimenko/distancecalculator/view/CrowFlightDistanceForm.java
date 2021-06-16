@@ -22,7 +22,7 @@ public class CrowFlightDistanceForm extends CustomComponent {
     private ComboBox boxFromCity;
     private ComboBox boxToCity;
     private TextField distanceField;
-    private Button calculate;
+    private Button calculateButton;
     private CheckBox saveBD;
 
 
@@ -30,14 +30,7 @@ public class CrowFlightDistanceForm extends CustomComponent {
 
         cdc = new CityDaoController();
         ddc = new DistanceDaoController();
-
-        try {
-            cityList = cdc.getAll();
-        } catch (DaoException e) {
-            e.printStackTrace();
-        } catch (CityException e) {
-            e.printStackTrace();
-        }
+        setCityList();
 
         Label formName = new Label("Crow flight distance calculator");
         saveBD = new CheckBox("Save result to database");
@@ -53,9 +46,8 @@ public class CrowFlightDistanceForm extends CustomComponent {
         boxToCity.setWidth("500");
         boxToCity.addValueChangeListener(event -> setDistanceField());
 
-
-        calculate = new Button("Calculate");
-        calculate.addClickListener(event -> {
+        calculateButton = new Button("Calculate");
+        calculateButton.addClickListener(event -> {
             try {
                 City fromCity = (City)boxFromCity.getValue();
                 City toCity = (City)boxToCity.getValue();
@@ -67,7 +59,7 @@ public class CrowFlightDistanceForm extends CustomComponent {
                             fromCity.getCityName() + " and " +
                             toCity.getCityName() + " is saved in the database",
                             Notification.Type.HUMANIZED_MESSAGE).setDelayMsec(1000);
-                    calculate.setEnabled(false);
+                    calculateButton.setEnabled(false);
                 }
             } catch (CityException e) {
                 Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
@@ -81,11 +73,21 @@ public class CrowFlightDistanceForm extends CustomComponent {
         });
 
         setCompositionRoot(new VerticalLayout(formName, boxFromCity, boxToCity,
-                saveBD, distanceField, calculate));
+                saveBD, distanceField, calculateButton));
+    }
+
+    public void setCityList() {
+        try {
+            cityList = cdc.getAll();
+        } catch (DaoException e) {
+            e.printStackTrace();
+        } catch (CityException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setDistanceField() {
-        calculate.setEnabled(true);
+        calculateButton.setEnabled(true);
         int distanceId = 0;
         toCity = (City)boxToCity.getValue();
         fromCity = (City)boxFromCity.getValue();
@@ -110,6 +112,4 @@ public class CrowFlightDistanceForm extends CustomComponent {
             Notification.show(e.getMessage(), Notification.Type.ERROR_MESSAGE);
         }
     }
-
-
 }

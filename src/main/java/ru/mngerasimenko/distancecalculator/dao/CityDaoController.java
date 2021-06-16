@@ -9,7 +9,7 @@ import ru.mngerasimenko.distancecalculator.settings.Settings;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
+
 
 public class CityDaoController extends DaoController<City, Integer> {
 
@@ -147,11 +147,9 @@ public class CityDaoController extends DaoController<City, Integer> {
             stmt.setInt(1, Integer.parseInt(Settings.getProperty(Settings.DB_LIMIT)));
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-
                 City city = new City(rs.getInt("city_id"), rs.getString("city_name"),
                         rs.getString("latitude"), rs.getString("longitude"));
                 cityList.add(city);
-
             }
             rs.close();
         } catch (SQLException ex) {
@@ -161,7 +159,6 @@ public class CityDaoController extends DaoController<City, Integer> {
     }
 
     public void deleteCity(int cityId) throws DaoException {
-
         if (cityId == 0) {
             throw new DaoException("City id is '0'");
         }
@@ -172,6 +169,5 @@ public class CityDaoController extends DaoController<City, Integer> {
         } catch (SQLException ex) {
             throw new DaoException(ex);
         }
-
     }
 }

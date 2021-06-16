@@ -6,20 +6,20 @@ import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.DaoException;
 
+import javax.inject.Singleton;
 import java.util.List;
 
+@Singleton
 public class CityEditorForm extends CustomComponent {
 
     private CityDaoController cdc;
+    private City cityItem;
     private TextField findCity;
     private Grid<City> cityGrid;
     private Button addCity;
     private Button editCity;
     private Button deleteCity;
-
-    private City cityItem;
-
-    Window popupWindows;
+    private Window popupWindows;
 
     public CityEditorForm() {
         cdc = new CityDaoController();
@@ -30,7 +30,6 @@ public class CityEditorForm extends CustomComponent {
         initGrid();
         setCompositionRoot(new VerticalLayout(findCity, cityGrid, initButton()));
     }
-
 
     private HorizontalLayout initButton() {
         addCity = new Button("Added");
@@ -86,7 +85,7 @@ public class CityEditorForm extends CustomComponent {
         UI.getCurrent().addWindow(popupWindows);
     }
 
-    private void initGrid() {
+    public void initGrid() {
         cityGrid.removeAllColumns();
         List<City> cityList = null;
         try {

@@ -1,69 +1,80 @@
 package ru.mngerasimenko.distancecalculator.calculator;
 
 import ru.mngerasimenko.distancecalculator.domain.City;
-import ru.mngerasimenko.distancecalculator.domain.Сrawler;
-import ru.mngerasimenko.distancecalculator.settings.Settings;
+import ru.mngerasimenko.distancecalculator.domain.Crawler;
 import ru.mngerasimenko.distancecalculator.storage.DistanceStorage;
 
 import java.util.*;
 
 public class MatrixDistance implements Calculations {
 
-    Map<City, Сrawler> calcPath;
+    DistanceStorage distanceStorage;
+    Map<City, Crawler> calcPath;
+    List<City> listExistPath;
     City fromCity;
     City toCity;
     double toCityDist;
-    public int i;
+    boolean arrive;
 
-    public MatrixDistance(City fromCity, City toCity) {
+    public MatrixDistance(City fromCity, City toCity, DistanceStorage distanceStorage) {
+        this.distanceStorage = distanceStorage;
         this.fromCity = fromCity;
         this.toCity = toCity;
         this.toCityDist = Double.MAX_VALUE;
+        listExistPath = new ArrayList<>();
         initCalcPath();
     }
 
+    /**
+     *  The calcPath map is initialized.
+     *  Fill in all the cities available for crawling.
+     */
     private void initCalcPath() {
-        if (calcPath == null) calcPath = new HashMap<City, Сrawler>();
-        DistanceStorage.cityMap.forEach((city, citySet) -> {
-            Сrawler crawler = new Сrawler(false, Double.MAX_VALUE);
+        if (calcPath == null) calcPath = new HashMap<City, Crawler>();
+
+        distanceStorage.getCityMap().forEach((city, citySet) -> {
+            Crawler crawler = new Crawler( Double.MAX_VALUE);
             calcPath.put((City) city, crawler);
         });
-        calcPath.get(fromCity).setPassed(true);
         calcPath.get(fromCity).setDistance(0);
         calcPath.remove(toCity);
     }
 
-    private void calculateDist(Сrawler crawler, City fromCity) {
+    /**
+     *
+     * @param crawler
+     * @param fromCity
+     */
+    private void calculateDist(Crawler crawler, City fromCity) {
 
         City toCity = crawler.getCity();
-        if (toCity.equals(this.toCity)) {
+        if (toCity.getCityId() == this.toCity.getCityId()) {
             double newDist = crawler.getDistance() + calcPath.get(fromCity).getDistance();
             toCityDist = newDist < toCityDist ? newDist : toCityDist;
+            arrive = true;
         } else if (calcPath.containsKey(toCity)) {
             double dist = crawler.getDistance();
-            if (calcPath.containsKey(fromCity)) {
-                if (calcPath.get(toCity).getDistance() > dist) {
-                    calcPath.get(toCity).setDistance(dist + calcPath.get(fromCity).getDistance());
-                    calcPath.get(toCity).setPassed(true);
-                }
+            listExistPath.add(toCity);
+            if (calcPath.get(toCity).getDistance() > dist) {
+                calcPath.get(toCity).setDistance(dist + calcPath.get(fromCity).getDistance());
+
             }
         }
     }
 
     private void searchPath() {
-        ((HashSet) DistanceStorage.cityMap.get(fromCity)).forEach(item -> {
-            calculateDist((Сrawler) item, fromCity);
+        ((HashSet) distanceStorage.getCityMap().get(fromCity)).forEach(item -> {
+            calculateDist((Crawler) item, fromCity);
         });
         calcPath.remove(fromCity);
-        while (!calcPath.isEmpty()) {
-            DistanceStorage.cityMap.forEach((fromCity, citySet) -> {
-                if (calcPath.containsKey(fromCity) && calcPath.get(fromCity).isPassed()) {
-                    ((HashSet) citySet).forEach(item -> {
-                        calculateDist((Сrawler) item, (City) fromCity);
-                    });
-                }
-                calcPath.remove(fromCity);
+        while (!listExistPath.isEmpty()) {
+            City fCity = listExistPath.get(0);
+            Set<City> citySet = (Set<City>)distanceStorage.getCityMap().get(fCity);
+            ((HashSet) citySet).forEach(item -> {
+                calculateDist((Crawler) item, (City) fCity);
             });
+            calcPath.remove(fCity);
+            listExistPath.remove(fCity);
         }
     }
 
@@ -71,17 +82,20 @@ public class MatrixDistance implements Calculations {
         for (Object obj : calcPath.entrySet()) {
             Map.Entry mapItem = (Map.Entry) obj;
             System.out.print(mapItem.getKey() + " -> ");
-            Сrawler сrawler = (Сrawler) mapItem.getValue();
-            System.out.print(сrawler.getCity() + ":");
-            System.out.printf("%.0f ", сrawler.getDistance());
+            Crawler crawler = (Crawler) mapItem.getValue();
+            System.out.print(crawler.getCity() + ":");
+            System.out.printf("%.0f ", crawler.getDistance());
         }
         System.out.println();
     }
 
     @Override
     public double getDistance() {
-        searchPath();
-        double result = Math.round(toCityDist * 100);
-        return result / 100;
+            searchPath();
+        if (arrive) {
+            double result = Math.round(toCityDist * 100);
+            return result / 100;
+        }
+        return -1;
     }
 }

@@ -1,18 +1,18 @@
 package ru.mngerasimenko.distancecalculator.domain;
 
-public class Сrawler {
+public class Crawler {
 
-    private boolean passed;
+   // private boolean passed;
     private City city;
     private double distance;
 
 
-    public Сrawler(boolean passed, double distance) {
-        this.passed = passed;
+    public Crawler( double distance) {
+       // this.passed = passed;
         this.distance = distance;
     }
 
-    public Сrawler(City city, double distance) {
+    public Crawler(City city, double distance) {
         this.city = city;
         this.distance = distance;
     }
@@ -28,11 +28,11 @@ public class Сrawler {
         this.distance = distance;
     }
 
-    public boolean isPassed() {
-        return passed;
-    }
-
-    public void setPassed(boolean passed) {
-        this.passed = passed;
-    }
+//    public boolean isPassed() {
+//        return passed;
+//    }
+//
+//    public void setPassed(boolean passed) {
+//        this.passed = passed;
+//    }
 }

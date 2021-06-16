@@ -1,8 +1,6 @@
 package ru.mngerasimenko.distancecalculator.domain;
 
-import ru.mngerasimenko.distancecalculator.calculator.Calculations;
 import ru.mngerasimenko.distancecalculator.calculator.CrowFlightDistance;
-import ru.mngerasimenko.distancecalculator.domain.City;
 import ru.mngerasimenko.distancecalculator.exception.CityException;
 
 import javax.xml.bind.annotation.*;
@@ -34,7 +32,7 @@ public class Distance {
         this.distance_id = distance_id;
         this.fromCity = fromCity;
         this.toCity = toCity;
-        if(distance > 0) {
+        if (distance > 0) {
             this.distance = distance;
         } else {
             this.distance = new CrowFlightDistance(fromCity, toCity).getDistance();
@@ -79,6 +77,6 @@ public class Distance {
 
     @Override
     public String toString() {
-        return fromCity + " --> " + toCity + " : " + (int)distance;
+        return fromCity + " --> " + toCity + " : " + (int) distance;
     }
 }

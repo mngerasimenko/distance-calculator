@@ -27,7 +27,7 @@ public class MatrixDistanceTest {
         distanceStorage = new DistanceStorage();
         distanceStorage.addItems(ddc.getAll());
         //citySet = distanceStorage.getCitySet();
-        matrixDistance = new MatrixDistance(cdc.getItem(1), cdc.getItem(2));
+        matrixDistance = new MatrixDistance(cdc.getItem(1), cdc.getItem(2), distanceStorage);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class MatrixDistanceTest {
         distanceStorage = new DistanceStorage();
         distanceStorage.addItems(ddc.getAll());
         //citySet = distanceStorage.getCitySet();
-        matrixDistance = new MatrixDistance(cdc.getItem(2), cdc.getItem(4));
+        matrixDistance = new MatrixDistance(cdc.getItem(2), cdc.getItem(4), distanceStorage);
         System.out.println(matrixDistance.getDistance());
     }
 }
