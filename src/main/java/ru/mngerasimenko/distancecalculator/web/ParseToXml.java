@@ -1,7 +1,5 @@
 package ru.mngerasimenko.distancecalculator.web;
 
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Upload;
 import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.DaoException;
 import ru.mngerasimenko.distancecalculator.xml.XmlDistanceCalculator;
@@ -14,8 +12,6 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Path("/toxml")
 public class ParseToXml {
@@ -33,7 +29,7 @@ public class ParseToXml {
         } catch (DaoException e) {
             e.printStackTrace();
         } catch (JAXBException e) {
-            e.printStackTrace();
+            // error loading file
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

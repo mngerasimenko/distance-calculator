@@ -74,14 +74,16 @@ public class MainView extends UI {
             String response = target.path("rest").path("toxml").path(event.getFilename())
                     .request().accept(MediaType.APPLICATION_JSON).get(String.class);
 
-            System.out.println("File " + event.getFilename() + " is loaded");
-            Gson gson = new Gson();
-            Integer[] added = gson.fromJson(response, Integer[].class);
-            Notification.show("Added " + added[0] + " cityes and " + added[1] + " distances").setDelayMsec(2000);
+            if (response != null) {
+                System.out.println("File " + event.getFilename() + " is loaded");
+                Gson gson = new Gson();
+                Integer[] added = gson.fromJson(response, Integer[].class);
+                Notification.show("Added " + added[0] + " cityes and " + added[1] + " distances").setDelayMsec(2000);
 
-            editLayout.removeAllComponents();
-            cityEditorForm.initGrid();
-            editLayout.addComponent(cityEditorForm);
+                editLayout.removeAllComponents();
+                cityEditorForm.initGrid();
+                editLayout.addComponent(cityEditorForm);
+            } else Notification.show("Error loading file", Notification.Type.ERROR_MESSAGE);
         });
 
         Button saveToXml = new Button("Save to XML");
