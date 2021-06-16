@@ -164,7 +164,7 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <packagingExcludes>WEB-INF/classes/VAADIN/widgetsets/WEB-INF/**</packagingExcludes>
-                    <outputDirectory>D:\Programming\wildfly-22.0.0.Final\standalone\deployments</outputDirectory>
+                    <outputDirectory>D:\Programming\wildfly-14.0.0.Final\standalone\deployments</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>
