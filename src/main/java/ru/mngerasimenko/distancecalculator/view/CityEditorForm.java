@@ -52,7 +52,9 @@ public class CityEditorForm extends CustomComponent {
             }else Notification.show("Please select city for delete",
                     Notification.Type.HUMANIZED_MESSAGE).setDelayMsec(1000);
         });
-        return new HorizontalLayout(addCity, editCity, deleteCity);
+        Button reload = new Button("Reload");
+        reload.addClickListener(event -> initGrid());
+        return new HorizontalLayout(addCity, editCity, deleteCity, reload);
     }
 
     private void createWindow(String winName, int type) {

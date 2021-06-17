@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ru.mngerasimenko.distancecalculator.domain.City;
+import ru.mngerasimenko.distancecalculator.exception.AlreadyAddedException;
 import ru.mngerasimenko.distancecalculator.exception.CityException;
 import ru.mngerasimenko.distancecalculator.exception.DaoException;
 import ru.mngerasimenko.distancecalculator.exception.InvalidCoordinateFormatException;
@@ -64,9 +65,10 @@ public class CityDaoControllerTest {
     public void insertItemError5() throws CityException {
         City city = new City("TestCity","","34.545W");
     }
-    @Test(expected = DaoException.class)
+    @Test(expected = AlreadyAddedException.class)
     public void insertItemError6() throws CityException, DaoException {
-        City city = new City("Moscow","55.7522N","37.6156E");
+        City city = new City("Samara","53.2001N","50.15E");
+
         cityDC.insertItem(city);
     }
 
@@ -83,6 +85,12 @@ public class CityDaoControllerTest {
         int result = cityDC.editCityName(city, "Orenburg");
         Assert.assertTrue(result == 1);
     }
+    @Test
+    public void editCityName3() throws CityException, DaoException {
+        City city = cityDC.getItem(1);
+        int result = cityDC.editCityName(city, "Moscow");
+        Assert.assertTrue(result == 1);
+    }
     @Test(expected = CityException.class)
     public void editCityName1() throws CityException, DaoException {
         City city = new City("TestCity","23.234s","43.3555w");
@@ -95,7 +103,7 @@ public class CityDaoControllerTest {
     }
     @Test()
     public void deleteCity() throws DaoException {
-        cityDC.deleteCity(7);
+        cityDC.deleteCity(9);
     }
 
 }
